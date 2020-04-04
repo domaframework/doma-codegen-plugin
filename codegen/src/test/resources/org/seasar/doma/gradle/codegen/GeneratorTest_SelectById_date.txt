@@ -1,0 +1,6 @@
+select
+  /*%expand*/*
+from
+  HOGE
+where
+  ID = /* id */'2010-01-23'

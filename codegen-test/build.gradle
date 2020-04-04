@@ -1,0 +1,103 @@
+import org.h2.Driver
+import org.seasar.doma.gradle.codegen.jdbc.SimpleDataSource
+
+buildscript {
+    ext.domaVersion = '2.28.0'
+    ext.h2Version= '1.4.200'
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven {url 'https://oss.sonatype.org/content/repositories/snapshots/'}
+    }
+    dependencies {
+        classpath "org.seasar.doma:codegen"
+        classpath "com.h2database:h2:$h2Version"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.seasar.doma.compile' version '1.0.0'
+}
+
+apply plugin: 'org.seasar.doma.codegen'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.seasar.doma:doma:$domaVersion"
+    annotationProcessor "org.seasar.doma:doma:$domaVersion"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
+    testRuntimeOnly "com.h2database:h2:$h2Version"
+}
+
+def _url = "jdbc:h2:file:$projectDir/data/db"
+def _user = ''
+def _password = ''
+
+domaCodeGen {
+    dev {
+        def basePackage = 'codegen'
+        url = _url.toString()
+        user = _user
+        password = _password
+        entity {
+            packageName = "${basePackage}.entity"
+        }
+        dao {
+            packageName = "${basePackage}.dao"
+        }
+    }
+}
+
+task deleteSrc {
+    delete 'src'
+}
+
+task createDb {
+    doLast {
+        def ds = new SimpleDataSource()
+        ds.setDriver(new Driver())
+        ds.setUrl(_url)
+        ds.setUser(_user)
+        ds.setPassword(_password)
+
+        def sql = """
+            drop all objects;
+
+            create table department(
+                department_id integer not null primary key, 
+                department_no integer not null,
+                department_name varchar(20),
+                location varchar(20) default 'tokyo', 
+                version integer
+             );
+
+            create table employee(
+                employee_id integer not null primary key, 
+                employee_no integer not null,
+                employee_name varchar(20)
+            );
+            """
+        ds.connection.withCloseable {
+            it.createStatement().withCloseable {
+                it.execute(sql)
+            }
+        }
+    }
+}
+
+tasks.getByName('domaCodeGenDevDbMeta').dependsOn(deleteSrc, createDb)

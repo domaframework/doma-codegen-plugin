@@ -1,0 +1,83 @@
+package example.entity;
+
+import org.seasar.doma.Column;
+import org.seasar.doma.Entity;
+import org.seasar.doma.Id;
+import org.seasar.doma.Table;
+import org.seasar.doma.Version;
+
+/**
+ * COMMENT for HOGE
+ */
+@Entity
+@Table(name = "HOGE")
+public class THoge {
+
+    /** COMMENT for ID */
+    @Id
+    @Column(name = "ID")
+    Integer id;
+
+    /** COMMENT for NAME */
+    @Column(name = "EMP_NAME")
+    String empName;
+
+    /** COMMENT for VERSION */
+    @Version
+    @Column(name = "VERSION")
+    Integer version;
+
+    /** 
+     * Returns the id.
+     * 
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /** 
+     * Sets the id.
+     * 
+     * @param id the id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /** 
+     * Returns the empName.
+     * 
+     * @return the empName
+     */
+    public String getEmpName() {
+        return empName;
+    }
+
+    /** 
+     * Sets the empName.
+     * 
+     * @param empName the empName
+     */
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    /** 
+     * Returns the version.
+     * 
+     * @return the version
+     */
+    public Integer getVersion() {
+        return version;
+    }
+
+    /** 
+     * Sets the version.
+     * 
+     * @param version the version
+     */
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+}

@@ -1,0 +1,8 @@
+select
+  /*%expand*/*
+from
+  HOGE
+where
+  ID = /* id */1
+  and
+  VERSION = /* version */1

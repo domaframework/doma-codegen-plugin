@@ -1,0 +1,6 @@
+select
+  /*%expand*/*
+from
+  HOGE
+where
+  ID = /* id */'12:34:56'

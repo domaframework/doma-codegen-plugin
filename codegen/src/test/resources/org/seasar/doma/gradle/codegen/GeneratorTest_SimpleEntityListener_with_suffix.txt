@@ -1,0 +1,39 @@
+package example.entity;
+
+import org.seasar.doma.jdbc.entity.EntityListener;
+import org.seasar.doma.jdbc.entity.PostDeleteContext;
+import org.seasar.doma.jdbc.entity.PostInsertContext;
+import org.seasar.doma.jdbc.entity.PostUpdateContext;
+import org.seasar.doma.jdbc.entity.PreDeleteContext;
+import org.seasar.doma.jdbc.entity.PreInsertContext;
+import org.seasar.doma.jdbc.entity.PreUpdateContext;
+
+/**
+ * 
+ */
+public class HogeEntityListener implements EntityListener<HogeEntity> {
+
+    @Override
+    public void preInsert(HogeEntity entity, PreInsertContext<HogeEntity> context) {
+    }
+
+    @Override
+    public void preUpdate(HogeEntity entity, PreUpdateContext<HogeEntity> context) {
+    }
+
+    @Override
+    public void preDelete(HogeEntity entity, PreDeleteContext<HogeEntity> context) {
+    }
+
+    @Override
+    public void postInsert(HogeEntity entity, PostInsertContext<HogeEntity> context) {
+    }
+
+    @Override
+    public void postUpdate(HogeEntity entity, PostUpdateContext<HogeEntity> context) {
+    }
+
+    @Override
+    public void postDelete(HogeEntity entity, PostDeleteContext<HogeEntity> context) {
+    }
+}

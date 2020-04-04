@@ -1,0 +1,60 @@
+package example.entity;
+
+import org.seasar.doma.Column;
+import org.seasar.doma.Entity;
+import org.seasar.doma.Id;
+import org.seasar.doma.Table;
+
+/**
+ * COMMENT for HOGE
+ */
+@Entity
+@Table(name = "HOGE")
+public class Hoge {
+
+    /** COMMENT for ID */
+    @Id
+    @Column(name = "ID1")
+    Integer id1;
+
+    /** COMMENT for ID */
+    @Id
+    @Column(name = "ID2")
+    Integer id2;
+
+    /** 
+     * Returns the id1.
+     * 
+     * @return the id1
+     */
+    public Integer getId1() {
+        return id1;
+    }
+
+    /** 
+     * Sets the id1.
+     * 
+     * @param id1 the id1
+     */
+    public void setId1(Integer id1) {
+        this.id1 = id1;
+    }
+
+    /** 
+     * Returns the id2.
+     * 
+     * @return the id2
+     */
+    public Integer getId2() {
+        return id2;
+    }
+
+    /** 
+     * Sets the id2.
+     * 
+     * @param id2 the id2
+     */
+    public void setId2(Integer id2) {
+        this.id2 = id2;
+    }
+}

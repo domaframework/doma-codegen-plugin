@@ -1,0 +1,83 @@
+package example.entity;
+
+import example.domain.Name;
+import example.domain.XValue;
+import org.seasar.doma.Column;
+import org.seasar.doma.Entity;
+import org.seasar.doma.Id;
+import org.seasar.doma.Table;
+
+/**
+ * COMMENT for HOGE
+ */
+@Entity
+@Table(name = "HOGE")
+public class Hoge {
+
+    /** COMMENT for ID */
+    @Id
+    @Column(name = "ID")
+    Integer id;
+
+    /** COMMENT for NAME */
+    @Column(name = "EMP_NAME")
+    Name empName;
+
+    /** COMMENT for XVAL */
+    @Column(name = "XVAL")
+    XValue xval;
+
+    /** 
+     * Returns the id.
+     * 
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /** 
+     * Sets the id.
+     * 
+     * @param id the id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /** 
+     * Returns the empName.
+     * 
+     * @return the empName
+     */
+    public Name getEmpName() {
+        return empName;
+    }
+
+    /** 
+     * Sets the empName.
+     * 
+     * @param empName the empName
+     */
+    public void setEmpName(Name empName) {
+        this.empName = empName;
+    }
+
+    /** 
+     * Returns the xval.
+     * 
+     * @return the xval
+     */
+    public XValue getXval() {
+        return xval;
+    }
+
+    /** 
+     * Sets the xval.
+     * 
+     * @param xval the xval
+     */
+    public void setXval(XValue xval) {
+        this.xval = xval;
+    }
+}

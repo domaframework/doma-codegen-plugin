@@ -1,0 +1,3 @@
+rootProject.name = 'codegen-test'
+
+includeBuild '../codegen'
