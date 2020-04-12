@@ -65,7 +65,7 @@ public class CodeGenPlugin implements Plugin<Project> {
 
     dbMetaTask.configure(
         task -> {
-          task.setDescription("Read database metadata.");
+          task.setDescription("Reads database metadata.");
           connectProperties(task, codeGenConfig);
         });
     entityDescTask.configure(
@@ -84,7 +84,7 @@ public class CodeGenPlugin implements Plugin<Project> {
         });
     dtoTask.configure(
         task -> {
-          task.setDescription("Read resultSet metadata and generate a DTO source file.");
+          task.setDescription("Reads resultSet metadata and generate a DTO source file.");
           task.setGroup(TASK_GROUP_NAME);
           connectProperties(task, codeGenConfig);
         });
@@ -121,7 +121,7 @@ public class CodeGenPlugin implements Plugin<Project> {
         });
     allTask.configure(
         task -> {
-          task.setDescription("Generate all.");
+          task.setDescription("Generates all.");
           task.setGroup(TASK_GROUP_NAME);
           task.dependsOn(entityTask, daoTask, sqlTask, sqlTestTask);
         });
