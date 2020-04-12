@@ -208,7 +208,7 @@ They are listed as follows:
 | entity.ftl | org.seasar.doma.gradle.codege.desc.EntityDesc | entity source files|
 | entityListener.ftl | org.seasar.doma.gradle.codege.desc.EntityListenerDesc | entity listener source files |
 | dao.ftl | org.seasar.doma.gradle.codege.desc.DaoDesc | DAO source files |
-| sqlTestCase.ftl | org.seasar.doma.gradle.codege.desc.SqlTestDesc | test source files for SQL |
+| sqlTest.ftl | org.seasar.doma.gradle.codege.desc.SqlTestDesc | test source files for SQL |
 | selectById.sql.ftl | org.seasar.doma.gradle.codege.desc.SqlDesc | SQL files |
 | selectByIdAndVersion.sql.ftl | org.seasar.doma.gradle.codege.desc.SqlDesc | SQL files |
 
