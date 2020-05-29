@@ -30,6 +30,8 @@ public class EntityDescFactory {
 
   protected final boolean useListener;
 
+  protected final boolean useMetamodel;
+
   protected final Class<?> superclass;
 
   protected final EntityPropertyDescMerger entityPropertyDescMerger;
@@ -47,7 +49,8 @@ public class EntityDescFactory {
       boolean showTableName,
       boolean showDbComment,
       boolean useAccessor,
-      boolean useListener) {
+      boolean useListener,
+      boolean useMetamodel) {
     if (entityPropertyDescFactory == null) {
       throw new CodeGenNullPointerException("entityPropertyDescFactory");
     }
@@ -65,6 +68,7 @@ public class EntityDescFactory {
     this.showDbComment = showDbComment;
     this.useAccessor = useAccessor;
     this.useListener = useListener;
+    this.useMetamodel = useMetamodel;
     this.entityPropertyDescMerger = new EntityPropertyDescMerger(superclass);
   }
 
@@ -108,6 +112,7 @@ public class EntityDescFactory {
     entityDesc.setShowDbComment(true);
     entityDesc.setUseAccessor(useAccessor);
     entityDesc.setUseListener(useListener);
+    entityDesc.setUseMetamodel(useMetamodel);
     entityDesc.setTemplateName(Constants.ENTITY_TEMPLATE);
     handleShowTableName(entityDesc, tableMeta);
     handleEntityPropertyDesc(entityDesc, tableMeta);
@@ -145,6 +150,9 @@ public class EntityDescFactory {
 
   protected void handleImportName(EntityDesc entityDesc, TableMeta tableMeta) {
     classDescSupport.addImportName(entityDesc, ClassConstants.Entity);
+    if (entityDesc.isUseMetamodel()) {
+      classDescSupport.addImportName(entityDesc, ClassConstants.Metamodel);
+    }
     if (entityDesc.getCatalogName() != null
         || entityDesc.getSchemaName() != null
         || entityDesc.getTableName() != null) {

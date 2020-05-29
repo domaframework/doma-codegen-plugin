@@ -38,6 +38,8 @@ public class EntityDesc extends ClassDesc {
 
   protected boolean useListener;
 
+  protected boolean useMetamodel;
+
   protected boolean showDbComment;
 
   protected String templateName;
@@ -179,6 +181,14 @@ public class EntityDesc extends ClassDesc {
 
   public void setUseListener(boolean useListener) {
     this.useListener = useListener;
+  }
+
+  public boolean isUseMetamodel() {
+    return useMetamodel;
+  }
+
+  public void setUseMetamodel(boolean useMetamodel) {
+    this.useMetamodel = useMetamodel;
   }
 
   public boolean isShowDbComment() {

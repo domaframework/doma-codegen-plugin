@@ -43,6 +43,8 @@ public class EntityConfig {
 
   protected Property<Boolean> useListener;
 
+  protected Property<Boolean> useMetamodel;
+
   protected Property<String> originalStatesPropertyName;
 
   protected RegularFileProperty entityPropertyClassNamesFile;
@@ -69,6 +71,7 @@ public class EntityConfig {
     showDbComment = objects.property(Boolean.class);
     useAccessor = objects.property(Boolean.class);
     useListener = objects.property(Boolean.class);
+    useMetamodel = objects.property(Boolean.class);
     originalStatesPropertyName = objects.property(String.class);
     entityPropertyClassNamesFile = objects.fileProperty();
     prefix = objects.property(String.class);
@@ -84,6 +87,7 @@ public class EntityConfig {
     showDbComment.set(true);
     useAccessor.set(true);
     useListener.set(true);
+    useMetamodel.set(true);
   }
 
   @Internal
@@ -228,6 +232,15 @@ public class EntityConfig {
 
   public void setUseListener(boolean useListener) {
     this.useListener.set(useListener);
+  }
+
+  @Internal
+  public Property<Boolean> getUseMetamodel() {
+    return useMetamodel;
+  }
+
+  public void setUseMetamodel(boolean useMetamodel) {
+    this.useMetamodel.set(useMetamodel);
   }
 
   @Internal

@@ -85,6 +85,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -136,6 +137,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", null);
     generator.generate(new EntityContext(entityDesc));
@@ -187,6 +189,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, null, "Entity");
     generator.generate(new EntityContext(entityDesc));
@@ -238,8 +241,61 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", "Entity");
+    generator.generate(new EntityContext(entityDesc));
+
+    assertEquals(expect(testInfo), generator.getResult());
+  }
+
+  @Test
+  public void testMetamodel(TestInfo testInfo) throws Exception {
+    ColumnMeta id = new ColumnMeta();
+    id.setComment("COMMENT for ID");
+    id.setName("ID");
+    id.setTypeName("integer");
+    id.setPrimaryKey(true);
+    id.setNullable(false);
+
+    ColumnMeta empName = new ColumnMeta();
+    empName.setComment("COMMENT for NAME");
+    empName.setName("EMP_NAME");
+    empName.setTypeName("varcar");
+
+    ColumnMeta version = new ColumnMeta();
+    version.setComment("COMMENT for VERSION");
+    version.setName("VERSION");
+    version.setTypeName("integer");
+
+    TableMeta tableMeta = new TableMeta();
+    tableMeta.setCatalogName("CATALOG");
+    tableMeta.setSchemaName("SCHEMA");
+    tableMeta.setName("HOGE");
+    tableMeta.setComment("COMMENT for HOGE");
+    tableMeta.addColumnMeta(id);
+    tableMeta.addColumnMeta(empName);
+    tableMeta.addColumnMeta(version);
+
+    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
+    EntityPropertyDescFactory entityPropertyDescFactory =
+        factory.createEntityPropertyDescFactory(
+            dialect, resolver, "version", null, 100L, 50L, true);
+    EntityDescFactory entityDescFactory =
+        factory.createEntityDescFactory(
+            "example.entity",
+            null,
+            entityPropertyDescFactory,
+            NamingType.NONE,
+            null,
+            false,
+            false,
+            true,
+            true,
+            true,
+            false,
+            true);
+    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
 
     assertEquals(expect(testInfo), generator.getResult());
@@ -289,6 +345,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -328,7 +385,8 @@ public class GeneratorTest {
             true,
             true,
             true,
-            true);
+            true,
+            false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
 
@@ -383,6 +441,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -422,6 +481,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -468,6 +528,7 @@ public class GeneratorTest {
             false,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -514,6 +575,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -554,6 +616,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -593,6 +656,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -632,6 +696,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -679,6 +744,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -734,6 +800,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -773,6 +840,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     EntityListenerDescFactory entityListenerDescFactory =
@@ -816,6 +884,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", null);
     EntityListenerDescFactory entityListenerDescFactory =
@@ -859,6 +928,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, null, "Entity");
     EntityListenerDescFactory entityListenerDescFactory =
@@ -902,6 +972,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", "Entity");
     EntityListenerDescFactory entityListenerDescFactory =
@@ -945,6 +1016,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     EntityListenerDescFactory entityListenerDescFactory =
@@ -994,6 +1066,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1043,6 +1116,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", null);
 
@@ -1092,6 +1166,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, null, "Entity");
 
@@ -1141,6 +1216,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", "Entity");
 
@@ -1190,6 +1266,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1238,6 +1315,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1291,6 +1369,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1344,6 +1423,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
 
     try {
@@ -1415,6 +1495,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1469,6 +1550,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1523,6 +1605,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1577,6 +1660,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1631,6 +1715,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1691,6 +1776,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 

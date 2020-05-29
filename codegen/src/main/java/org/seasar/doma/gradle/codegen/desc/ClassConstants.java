@@ -13,6 +13,8 @@ public enum ClassConstants {
 
   Entity("org.seasar.doma", "Entity"),
 
+  Metamodel("org.seasar.doma", "Metamodel"),
+
   Table("org.seasar.doma", "Table"),
 
   Id("org.seasar.doma", "Id"),

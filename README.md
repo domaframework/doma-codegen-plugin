@@ -150,6 +150,7 @@ domaCodeGen {
 | showDbComment | whether to show database comments or not |  | `true` |
 | useAccessor | whether to use accessors or not |  | `true` |
 | useListener | whether to use listeners or not |  | `true` |
+| useMetamodel | whether to use metamodels or not |  | `true` |
 | originalStatesPropertyName | property to be annotated with `@OriginalStates` |  | |
 | entityPropertyClassNamesFile | file used to resolve entity property classes |  | |
 | prefix | prefix for entity classes |  | |

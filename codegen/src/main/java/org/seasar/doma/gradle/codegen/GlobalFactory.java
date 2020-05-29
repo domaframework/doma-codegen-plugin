@@ -76,7 +76,8 @@ public class GlobalFactory {
       boolean showTableName,
       boolean showDbComment,
       boolean useAccessor,
-      boolean useListener) {
+      boolean useListener,
+      boolean useMetamodel) {
     return new EntityDescFactory(
         packageName,
         superclass,
@@ -88,7 +89,8 @@ public class GlobalFactory {
         showTableName,
         showDbComment,
         useAccessor,
-        useListener);
+        useListener,
+        useMetamodel);
   }
 
   public EntityListenerDescFactory createEntityListenerDescFactory(
