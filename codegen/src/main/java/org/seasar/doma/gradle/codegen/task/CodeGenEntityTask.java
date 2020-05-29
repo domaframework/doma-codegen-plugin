@@ -74,9 +74,11 @@ public class CodeGenEntityTask extends DefaultTask {
     for (EntityDesc entityDesc : entityDescList.get()) {
       generateEntity(entityDesc);
 
-      EntityListenerDesc entityListenerDesc =
-          entityListenerDescFactory.createEntityListenerDesc(entityDesc);
-      generateEntityListener(entityListenerDesc);
+      if (entityDesc.isUseListener()) {
+        EntityListenerDesc entityListenerDesc =
+            entityListenerDescFactory.createEntityListenerDesc(entityDesc);
+        generateEntityListener(entityListenerDesc);
+      }
     }
   }
 
