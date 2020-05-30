@@ -207,7 +207,8 @@ public class CodeGenDtoTask extends DefaultTask {
             entityConfig.getShowDbComment().get(),
             entityConfig.getUseAccessor().get(),
             entityConfig.getUseListener().get(),
-            entityConfig.getUseMetamodel().get());
+            entityConfig.getUseMetamodel().get(),
+            entityConfig.getUseMappedSuperclass().get());
   }
 
   protected void generateDto(EntityDesc entityDesc) {

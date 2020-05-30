@@ -10,6 +10,7 @@ import org.seasar.doma.gradle.codegen.desc.EntityListenerDescFactory;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyClassNameResolver;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyDescFactory;
 import org.seasar.doma.gradle.codegen.desc.GenerationType;
+import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDescFactory;
 import org.seasar.doma.gradle.codegen.desc.NamingType;
 import org.seasar.doma.gradle.codegen.desc.SqlDescFactory;
 import org.seasar.doma.gradle.codegen.desc.SqlTestDescFactory;
@@ -77,7 +78,8 @@ public class GlobalFactory {
       boolean showDbComment,
       boolean useAccessor,
       boolean useListener,
-      boolean useMetamodel) {
+      boolean useMetamodel,
+      boolean useMappedSuperclass) {
     return new EntityDescFactory(
         packageName,
         superclass,
@@ -90,12 +92,18 @@ public class GlobalFactory {
         showDbComment,
         useAccessor,
         useListener,
-        useMetamodel);
+        useMetamodel,
+        useMappedSuperclass);
   }
 
   public EntityListenerDescFactory createEntityListenerDescFactory(
       String packageName, String superclassName) {
     return new EntityListenerDescFactory(packageName, superclassName);
+  }
+
+  public MappedSuperclassDescFactory createMappedSuperclassDescFactory(
+      String packageName, String entitySuperclassName) {
+    return new MappedSuperclassDescFactory(packageName, entitySuperclassName);
   }
 
   public DaoDescFactory createDaoDescFactory(

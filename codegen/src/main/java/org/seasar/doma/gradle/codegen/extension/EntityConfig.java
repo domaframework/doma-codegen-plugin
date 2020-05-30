@@ -45,6 +45,8 @@ public class EntityConfig {
 
   protected Property<Boolean> useMetamodel;
 
+  protected Property<Boolean> useMappedSuperclass;
+
   protected Property<String> originalStatesPropertyName;
 
   protected RegularFileProperty entityPropertyClassNamesFile;
@@ -72,6 +74,7 @@ public class EntityConfig {
     useAccessor = objects.property(Boolean.class);
     useListener = objects.property(Boolean.class);
     useMetamodel = objects.property(Boolean.class);
+    useMappedSuperclass = objects.property(Boolean.class);
     originalStatesPropertyName = objects.property(String.class);
     entityPropertyClassNamesFile = objects.fileProperty();
     prefix = objects.property(String.class);
@@ -88,6 +91,7 @@ public class EntityConfig {
     useAccessor.set(true);
     useListener.set(true);
     useMetamodel.set(true);
+    useMappedSuperclass.set(true);
   }
 
   @Internal
@@ -241,6 +245,15 @@ public class EntityConfig {
 
   public void setUseMetamodel(boolean useMetamodel) {
     this.useMetamodel.set(useMetamodel);
+  }
+
+  @Internal
+  public Property<Boolean> getUseMappedSuperclass() {
+    return useMappedSuperclass;
+  }
+
+  public void setUseMappedSuperclass(boolean useMappedSuperclass) {
+    this.useMappedSuperclass.set(useMappedSuperclass);
   }
 
   @Internal

@@ -18,6 +18,8 @@ import org.seasar.doma.gradle.codegen.desc.EntityListenerDescFactory;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyClassNameResolver;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyDescFactory;
 import org.seasar.doma.gradle.codegen.desc.GenerationType;
+import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDesc;
+import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDescFactory;
 import org.seasar.doma.gradle.codegen.desc.NamingType;
 import org.seasar.doma.gradle.codegen.desc.SqlDesc;
 import org.seasar.doma.gradle.codegen.desc.SqlDescFactory;
@@ -86,6 +88,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -137,6 +140,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", null);
@@ -190,6 +194,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, null, "Entity");
     generator.generate(new EntityContext(entityDesc));
@@ -241,6 +246,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", "Entity");
@@ -294,7 +300,8 @@ public class GeneratorTest {
             true,
             true,
             false,
-            true);
+            true,
+            false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
 
@@ -346,6 +353,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -386,6 +394,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -442,6 +451,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -481,6 +491,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
@@ -529,6 +540,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -576,6 +588,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -617,6 +630,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -657,6 +671,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -696,6 +711,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
@@ -744,6 +760,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
@@ -801,6 +818,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     generator.generate(new EntityContext(entityDesc));
@@ -840,6 +858,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
@@ -885,6 +904,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", null);
     EntityListenerDescFactory entityListenerDescFactory =
@@ -928,6 +948,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, null, "Entity");
@@ -973,6 +994,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", "Entity");
     EntityListenerDescFactory entityListenerDescFactory =
@@ -1017,6 +1039,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
     EntityListenerDescFactory entityListenerDescFactory =
@@ -1024,6 +1047,112 @@ public class GeneratorTest {
     EntityListenerDesc entityListenerDesc =
         entityListenerDescFactory.createEntityListenerDesc(entityDesc);
     generator.generate(new EntityListenerContext(entityListenerDesc));
+
+    assertEquals(expect(testInfo), generator.getResult());
+  }
+
+  @Test
+  public void testSimpleMappedSuperclass(TestInfo testInfo) throws Exception {
+    ColumnMeta id = new ColumnMeta();
+    id.setComment("COMMENT for ID");
+    id.setName("ID");
+    id.setTypeName("integer");
+    id.setPrimaryKey(true);
+    id.setNullable(false);
+
+    TableMeta tableMeta = new TableMeta();
+    tableMeta.setCatalogName("CATALOG");
+    tableMeta.setSchemaName("SCHEMA");
+    tableMeta.setName("HOGE");
+    tableMeta.setComment("COMMENT for HOGE");
+    tableMeta.addColumnMeta(id);
+
+    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
+    EntityPropertyDescFactory entityPropertyDescFactory =
+        factory.createEntityPropertyDescFactory(
+            dialect, resolver, "version", null, 100L, 50L, true);
+    EntityDescFactory entityDescFactory =
+        factory.createEntityDescFactory(
+            "example.entity",
+            null,
+            entityPropertyDescFactory,
+            NamingType.NONE,
+            null,
+            false,
+            false,
+            true,
+            true,
+            true,
+            false,
+            false,
+            true);
+    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
+    MappedSuperclassDescFactory mappedSuperclassDescFactory =
+        factory.createMappedSuperclassDescFactory("example.entity", null);
+    MappedSuperclassDesc mappedSuperclassDesc =
+        mappedSuperclassDescFactory.createMappedSuperclassDesc(entityDesc);
+    generator.generate(new MappedSuperclassContext(mappedSuperclassDesc));
+
+    assertEquals(expect(testInfo), generator.getResult());
+  }
+
+  @Test
+  public void testExtendingMappedSuperclass(TestInfo testInfo) throws Exception {
+    ColumnMeta id = new ColumnMeta();
+    id.setComment("COMMENT for ID");
+    id.setName("ID");
+    id.setTypeName("integer");
+    id.setPrimaryKey(true);
+    id.setNullable(false);
+
+    ColumnMeta name = new ColumnMeta();
+    name.setComment("COMMENT for NAME");
+    name.setName("NAME");
+    name.setTypeName("varchar");
+    name.setPrimaryKey(false);
+    name.setNullable(false);
+
+    ColumnMeta privateString = new ColumnMeta();
+    privateString.setComment("COMMENT for PRIVATESTRING");
+    privateString.setName("PRIVATESTRING");
+    privateString.setTypeName("varchar");
+    privateString.setPrimaryKey(false);
+    privateString.setNullable(false);
+
+    TableMeta tableMeta = new TableMeta();
+    tableMeta.setCatalogName("CATALOG");
+    tableMeta.setSchemaName("SCHEMA");
+    tableMeta.setName("HOGE");
+    tableMeta.setComment("COMMENT for HOGE");
+    tableMeta.addColumnMeta(id);
+    tableMeta.addColumnMeta(name);
+    tableMeta.addColumnMeta(privateString);
+
+    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
+    EntityPropertyDescFactory entityPropertyDescFactory =
+        factory.createEntityPropertyDescFactory(
+            dialect, resolver, "version", null, 100L, 50L, true);
+    EntityDescFactory entityDescFactory =
+        factory.createEntityDescFactory(
+            "example.entity",
+            CommonEntity.class,
+            entityPropertyDescFactory,
+            NamingType.NONE,
+            null,
+            false,
+            false,
+            true,
+            true,
+            true,
+            false,
+            false,
+            true);
+    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
+    MappedSuperclassDescFactory mappedSuperclassDescFactory =
+        factory.createMappedSuperclassDescFactory("example.entity", CommonEntity.class.getName());
+    MappedSuperclassDesc mappedSuperclassDesc =
+        mappedSuperclassDescFactory.createMappedSuperclassDesc(entityDesc);
+    generator.generate(new MappedSuperclassContext(mappedSuperclassDesc));
 
     assertEquals(expect(testInfo), generator.getResult());
   }
@@ -1066,6 +1195,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
@@ -1117,6 +1247,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", null);
 
@@ -1166,6 +1297,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, null, "Entity");
@@ -1217,6 +1349,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta, "T", "Entity");
 
@@ -1267,6 +1400,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1315,6 +1449,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
@@ -1370,6 +1505,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1423,6 +1559,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
 
@@ -1496,6 +1633,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1550,6 +1688,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
@@ -1606,6 +1745,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1661,6 +1801,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1715,6 +1856,7 @@ public class GeneratorTest {
             true,
             true,
             true,
+            false,
             false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
@@ -1777,6 +1919,7 @@ public class GeneratorTest {
             true,
             true,
             false,
+            false,
             false);
     EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
 
@@ -1814,6 +1957,13 @@ public class GeneratorTest {
   private class EntityListenerContext extends GenerationContext {
 
     public EntityListenerContext(EntityListenerDesc model) {
+      super(model, new File("dummy"), model.getTemplateName(), "UTF-8", true);
+    }
+  }
+
+  private class MappedSuperclassContext extends GenerationContext {
+
+    public MappedSuperclassContext(MappedSuperclassDesc model) {
       super(model, new File("dummy"), model.getTemplateName(), "UTF-8", true);
     }
   }

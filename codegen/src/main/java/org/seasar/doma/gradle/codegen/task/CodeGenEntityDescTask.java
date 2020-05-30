@@ -173,6 +173,7 @@ public class CodeGenEntityDescTask extends DefaultTask {
             entityConfig.getShowDbComment().get(),
             entityConfig.getUseAccessor().get(),
             entityConfig.getUseListener().get(),
-            entityConfig.getUseMetamodel().get());
+            entityConfig.getUseMetamodel().get(),
+            entityConfig.getUseMappedSuperclass().get());
   }
 }

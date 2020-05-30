@@ -40,6 +40,8 @@ public class EntityDesc extends ClassDesc {
 
   protected boolean useMetamodel;
 
+  protected boolean useMappedSuperclass;
+
   protected boolean showDbComment;
 
   protected String templateName;
@@ -189,6 +191,14 @@ public class EntityDesc extends ClassDesc {
 
   public void setUseMetamodel(boolean useMetamodel) {
     this.useMetamodel = useMetamodel;
+  }
+
+  public boolean isUseMappedSuperclass() {
+    return useMappedSuperclass;
+  }
+
+  public void setUseMappedSuperclass(boolean useMappedSuperclass) {
+    this.useMappedSuperclass = useMappedSuperclass;
   }
 
   public boolean isShowDbComment() {

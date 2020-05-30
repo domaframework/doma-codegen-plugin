@@ -13,6 +13,8 @@ import org.seasar.doma.gradle.codegen.GlobalFactory;
 import org.seasar.doma.gradle.codegen.desc.EntityDesc;
 import org.seasar.doma.gradle.codegen.desc.EntityListenerDesc;
 import org.seasar.doma.gradle.codegen.desc.EntityListenerDescFactory;
+import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDesc;
+import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDescFactory;
 import org.seasar.doma.gradle.codegen.extension.EntityConfig;
 import org.seasar.doma.gradle.codegen.generator.GenerationContext;
 import org.seasar.doma.gradle.codegen.generator.Generator;
@@ -71,6 +73,7 @@ public class CodeGenEntityTask extends DefaultTask {
   @TaskAction
   public void generate() {
     EntityListenerDescFactory entityListenerDescFactory = createEntityListenerDescFactory();
+    MappedSuperclassDescFactory mappedSuperclassDescFactory = createMappedSuperclassDescFactory();
     for (EntityDesc entityDesc : entityDescList.get()) {
       generateEntity(entityDesc);
 
@@ -78,6 +81,12 @@ public class CodeGenEntityTask extends DefaultTask {
         EntityListenerDesc entityListenerDesc =
             entityListenerDescFactory.createEntityListenerDesc(entityDesc);
         generateEntityListener(entityListenerDesc);
+      }
+
+      if (entityDesc.isUseMappedSuperclass()) {
+        MappedSuperclassDesc mappedSuperclassDesc =
+            mappedSuperclassDescFactory.createMappedSuperclassDesc(entityDesc);
+        generateMappedSuperclass(mappedSuperclassDesc);
       }
     }
   }
@@ -88,6 +97,13 @@ public class CodeGenEntityTask extends DefaultTask {
         .createEntityListenerDescFactory(
             entityConfig.getPackageName().get(),
             entityConfig.getListenerSuperclassName().getOrNull());
+  }
+
+  private MappedSuperclassDescFactory createMappedSuperclassDescFactory() {
+    return globalFactory
+        .get()
+        .createMappedSuperclassDescFactory(
+            entityConfig.getPackageName().get(), entityConfig.getSuperclassName().getOrNull());
   }
 
   private void generateEntity(EntityDesc entityDesc) {
@@ -111,6 +127,20 @@ public class CodeGenEntityTask extends DefaultTask {
             entityListenerDesc,
             javaFile,
             entityListenerDesc.getTemplateName(),
+            encoding.get(),
+            entityConfig.getOverwriteListener().get());
+    generator.get().generate(context);
+  }
+
+  private void generateMappedSuperclass(MappedSuperclassDesc mappedSuperclassDesc) {
+    File javaFile =
+        FileUtil.createJavaFile(
+            sourceDir.get().getAsFile(), mappedSuperclassDesc.getQualifiedName());
+    GenerationContext context =
+        new GenerationContext(
+            mappedSuperclassDesc,
+            javaFile,
+            mappedSuperclassDesc.getTemplateName(),
             encoding.get(),
             entityConfig.getOverwriteListener().get());
     generator.get().generate(context);

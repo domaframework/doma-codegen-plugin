@@ -1,0 +1,7 @@
+package example.entity;
+
+
+/**
+ */
+public abstract class AbstractHoge {
+}

@@ -4,9 +4,13 @@ public class Constants {
 
   public static final String ENTITY_LISTENER_SUFFIX = "Listener";
 
+  public static final String MAPPED_SUPER_CLASS_PREFIX = "Abstract";
+
   public static final String ENTITY_TEMPLATE = "entity.ftl";
 
   public static final String ENTITY_LISTENER_TEMPLATE = "entityListener.ftl";
+
+  public static final String MAPPED_SUPERCLASS_TEMPLATE = "mappedSuperclass.ftl";
 
   public static final String DAO_TEMPLATE = "dao.ftl";
 

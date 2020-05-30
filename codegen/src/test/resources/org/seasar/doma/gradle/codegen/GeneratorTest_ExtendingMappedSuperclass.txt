@@ -1,0 +1,8 @@
+package example.entity;
+
+import example.hoge.CommonEntity;
+
+/**
+ */
+public abstract class AbstractHoge extends CommonEntity {
+}

@@ -32,6 +32,8 @@ public class EntityDescFactory {
 
   protected final boolean useMetamodel;
 
+  protected final boolean useMappedSuperclass;
+
   protected final Class<?> superclass;
 
   protected final EntityPropertyDescMerger entityPropertyDescMerger;
@@ -50,7 +52,8 @@ public class EntityDescFactory {
       boolean showDbComment,
       boolean useAccessor,
       boolean useListener,
-      boolean useMetamodel) {
+      boolean useMetamodel,
+      boolean useMappedSuperclass) {
     if (entityPropertyDescFactory == null) {
       throw new CodeGenNullPointerException("entityPropertyDescFactory");
     }
@@ -69,6 +72,7 @@ public class EntityDescFactory {
     this.useAccessor = useAccessor;
     this.useListener = useListener;
     this.useMetamodel = useMetamodel;
+    this.useMappedSuperclass = useMappedSuperclass;
     this.entityPropertyDescMerger = new EntityPropertyDescMerger(superclass);
   }
 
@@ -93,10 +97,15 @@ public class EntityDescFactory {
     entityDesc.setTableName(tableMeta.getName());
     entityDesc.setQualifiedTableName(tableMeta.getQualifiedTableName());
     entityDesc.setPackageName(packageName);
-    entityDesc.setEntityPrefix(StringUtil.defaultString(entityPrefix, ""));
-    entityDesc.setEntitySuffix(StringUtil.defaultString(entitySuffix, ""));
+    String prefix = StringUtil.defaultString(entityPrefix, "");
+    entityDesc.setEntityPrefix(prefix);
+    String suffix = StringUtil.defaultString(entitySuffix, "");
+    entityDesc.setEntitySuffix(suffix);
     entityDesc.setSimpleName(simpleName);
-    if (superclass != null) {
+    if (useMappedSuperclass) {
+      entityDesc.setSuperclassSimpleName(
+          Constants.MAPPED_SUPER_CLASS_PREFIX + prefix + simpleName + suffix);
+    } else if (superclass != null) {
       entityDesc.setSuperclassSimpleName(superclass.getSimpleName());
     }
     entityDesc.setListenerClassSimpleName(
@@ -113,6 +122,7 @@ public class EntityDescFactory {
     entityDesc.setUseAccessor(useAccessor);
     entityDesc.setUseListener(useListener);
     entityDesc.setUseMetamodel(useMetamodel);
+    entityDesc.setUseMappedSuperclass(useMappedSuperclass);
     entityDesc.setTemplateName(Constants.ENTITY_TEMPLATE);
     handleShowTableName(entityDesc, tableMeta);
     handleEntityPropertyDesc(entityDesc, tableMeta);
@@ -158,7 +168,7 @@ public class EntityDescFactory {
         || entityDesc.getTableName() != null) {
       classDescSupport.addImportName(entityDesc, ClassConstants.Table);
     }
-    if (superclass != null) {
+    if (!useMappedSuperclass && superclass != null) {
       classDescSupport.addImportName(entityDesc, superclass.getName());
     }
     if (namingType != NamingType.NONE) {
