@@ -1,0 +1,40 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    if: "!contains(toJSON(github.event.commits.*.message), '[skip ci]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Grant execute permission for codegen/gradlew
+        working-directory: ./codegen
+        run: chmod +x gradlew
+      - name: Grant execute permission for codegen-test/gradlew
+        working-directory: ./codegen-test
+        run: chmod +x gradlew
+      - name: Build plugin
+        working-directory: ./codegen
+        run: ./gradlew build
+      - name: Test plugin
+        working-directory: ./codegen-test
+        run: ./gradlew domaCodeGenDevAll build
+      - id: set-version
+        working-directory: ./codegen
+        run: ./gradlew issueVersionCommand
+      - name: Print version
+        run: echo ${{ steps.set-version.outputs.version }}
+      - name: Publish plugin
+        if: "!endsWith(steps.set-version.outputs.version, 'SNAPSHOT')"
+        working-directory: ./codegen
+        run: ./gradlew publishPlugins -Pgradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }} -Pgradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}
