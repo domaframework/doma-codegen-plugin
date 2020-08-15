@@ -11,9 +11,7 @@ It generates Java source files and SQL files from Database.
 How to use
 ----------
 
-First, see [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.seasar.doma.codegen).
-
-The basic usage example is as follows:
+The basic build.gradle example is as follows:
 
 ```groovy
 buildscript {
@@ -58,6 +56,13 @@ To generate all files, run `domaCodeGenDevAll` task:
 ```bash
 $ ./gradlew domaCodeGenDevAll
 ```
+
+See also [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.seasar.doma.codegen).
+
+Sample Project
+--------------
+
+- [codegen-sample](https://github.com/domaframework/codegen-sample)
 
 Gradle Tasks
 ------------
@@ -240,8 +245,3 @@ domaCodeGen {
 ```
 
 The Doma CodeGen Plugin uses [Apache FreeMarker](https://freemarker.apache.org/) to process the template files.
-
-Sample Project
---------------
-
-- [codegen-sample](https://github.com/domaframework/codegen-sample)
