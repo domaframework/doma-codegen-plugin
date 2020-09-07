@@ -1,5 +1,5 @@
 {
   "extends": [
-    "config:base"
+    "github>domaframework/renovate-config"
   ]
 }
