@@ -17,7 +17,7 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.seasar.doma.compile' version '1.0.0'
+    id 'org.seasar.doma.compile' version '1.1.0'
 }
 
 apply plugin: 'org.seasar.doma.codegen'
