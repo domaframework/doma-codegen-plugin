@@ -25,7 +25,7 @@ public class EntityPropertyDescFactory {
   protected final CodeGenDialect dialect;
 
   protected final EntityPropertyClassNameResolver propertyClassNameResolver;
-  
+
   protected final LanguageClassResolver languageClassResolver;
 
   protected final Pattern versionColumnNamePattern;

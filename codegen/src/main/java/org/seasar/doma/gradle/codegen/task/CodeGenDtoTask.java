@@ -1,5 +1,7 @@
 package org.seasar.doma.gradle.codegen.task;
 
+import java.io.File;
+import javax.sql.DataSource;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.ListProperty;
@@ -26,9 +28,6 @@ import org.seasar.doma.gradle.codegen.meta.ResultSetMetaReader;
 import org.seasar.doma.gradle.codegen.meta.TableMeta;
 import org.seasar.doma.gradle.codegen.util.ClassUtil;
 import org.seasar.doma.gradle.codegen.util.FileUtil;
-
-import javax.sql.DataSource;
-import java.io.File;
 
 public class CodeGenDtoTask extends DefaultTask {
 

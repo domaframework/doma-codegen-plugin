@@ -658,7 +658,14 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", GenerationType.SEQUENCE, 100L, 50L, true);
+            dialect,
+            resolver,
+            new JavaClassResolver(),
+            "version",
+            GenerationType.SEQUENCE,
+            100L,
+            50L,
+            true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -699,7 +706,14 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", GenerationType.TABLE, 100L, 50L, true);
+            dialect,
+            resolver,
+            new JavaClassResolver(),
+            "version",
+            GenerationType.TABLE,
+            100L,
+            50L,
+            true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",

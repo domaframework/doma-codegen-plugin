@@ -1,10 +1,8 @@
 package org.seasar.doma.gradle.codegen;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import example.hoge.CommonEntity;
-import example.hoge.ParentEntity;
 import java.io.File;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
@@ -30,9 +28,7 @@ import org.seasar.doma.gradle.codegen.desc.SqlTestDescFactory;
 import org.seasar.doma.gradle.codegen.desc.SqlTestMethodDesc;
 import org.seasar.doma.gradle.codegen.dialect.CodeGenDialect;
 import org.seasar.doma.gradle.codegen.dialect.PostgresCodeGenDialect;
-import org.seasar.doma.gradle.codegen.exception.CodeGenException;
 import org.seasar.doma.gradle.codegen.generator.GenerationContext;
-import org.seasar.doma.gradle.codegen.message.Message;
 import org.seasar.doma.gradle.codegen.meta.ColumnMeta;
 import org.seasar.doma.gradle.codegen.meta.TableMeta;
 import org.seasar.doma.gradle.codegen.util.ResourceUtil;
@@ -659,7 +655,14 @@ public class KotlinGeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new KotlinClassResolver(), "version", GenerationType.SEQUENCE, 100L, 50L, true);
+            dialect,
+            resolver,
+            new KotlinClassResolver(),
+            "version",
+            GenerationType.SEQUENCE,
+            100L,
+            50L,
+            true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -700,7 +703,14 @@ public class KotlinGeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new KotlinClassResolver(), "version", GenerationType.TABLE, 100L, 50L, true);
+            dialect,
+            resolver,
+            new KotlinClassResolver(),
+            "version",
+            GenerationType.TABLE,
+            100L,
+            50L,
+            true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",

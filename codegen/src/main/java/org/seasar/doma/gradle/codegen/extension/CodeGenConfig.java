@@ -1,5 +1,12 @@
 package org.seasar.doma.gradle.codegen.extension;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.sql.Driver;
+import java.util.Collections;
+import java.util.List;
+import javax.inject.Inject;
+import javax.sql.DataSource;
 import org.gradle.api.Action;
 import org.gradle.api.Project;
 import org.gradle.api.file.Directory;
@@ -19,14 +26,6 @@ import org.seasar.doma.gradle.codegen.generator.Generator;
 import org.seasar.doma.gradle.codegen.message.Message;
 import org.seasar.doma.gradle.codegen.util.ClassUtil;
 import org.seasar.doma.gradle.codegen.util.JdbcUtil;
-
-import javax.inject.Inject;
-import javax.sql.DataSource;
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.sql.Driver;
-import java.util.Collections;
-import java.util.List;
 
 public class CodeGenConfig {
 

@@ -1,5 +1,6 @@
 package org.seasar.doma.gradle.codegen.task;
 
+import java.io.File;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.ListProperty;
@@ -19,8 +20,6 @@ import org.seasar.doma.gradle.codegen.extension.EntityConfig;
 import org.seasar.doma.gradle.codegen.generator.GenerationContext;
 import org.seasar.doma.gradle.codegen.generator.Generator;
 import org.seasar.doma.gradle.codegen.util.FileUtil;
-
-import java.io.File;
 
 public class CodeGenEntityTask extends DefaultTask {
 
@@ -123,7 +122,7 @@ public class CodeGenEntityTask extends DefaultTask {
     GenerationContext context =
         new GenerationContext(
             entityDesc,
-                sourceFile,
+            sourceFile,
             entityDesc.getTemplateName(),
             encoding.get(),
             entityConfig.getOverwrite().get());
@@ -137,7 +136,7 @@ public class CodeGenEntityTask extends DefaultTask {
     GenerationContext context =
         new GenerationContext(
             entityListenerDesc,
-                sourceFile,
+            sourceFile,
             entityListenerDesc.getTemplateName(),
             encoding.get(),
             entityConfig.getOverwriteListener().get());
@@ -153,7 +152,7 @@ public class CodeGenEntityTask extends DefaultTask {
     GenerationContext context =
         new GenerationContext(
             mappedSuperclassDesc,
-                sourceFile,
+            sourceFile,
             mappedSuperclassDesc.getTemplateName(),
             encoding.get(),
             entityConfig.getOverwriteListener().get());

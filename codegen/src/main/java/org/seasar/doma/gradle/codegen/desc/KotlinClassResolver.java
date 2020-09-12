@@ -1,10 +1,9 @@
 package org.seasar.doma.gradle.codegen.desc;
 
-import org.seasar.doma.gradle.codegen.meta.ColumnMeta;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import org.seasar.doma.gradle.codegen.meta.ColumnMeta;
 
 public class KotlinClassResolver implements LanguageClassResolver {
 

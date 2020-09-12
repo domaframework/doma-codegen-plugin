@@ -1,11 +1,10 @@
 package org.seasar.doma.gradle.codegen.util;
 
-import org.junit.jupiter.api.Test;
-import org.seasar.doma.gradle.codegen.desc.LanguageType;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 
 public class FileUtilTest {
 

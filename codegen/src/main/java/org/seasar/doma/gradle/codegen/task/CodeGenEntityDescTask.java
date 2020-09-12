@@ -1,5 +1,8 @@
 package org.seasar.doma.gradle.codegen.task;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.sql.DataSource;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
@@ -18,10 +21,6 @@ import org.seasar.doma.gradle.codegen.dialect.CodeGenDialect;
 import org.seasar.doma.gradle.codegen.extension.EntityConfig;
 import org.seasar.doma.gradle.codegen.meta.TableMeta;
 import org.seasar.doma.gradle.codegen.util.ClassUtil;
-
-import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CodeGenEntityDescTask extends DefaultTask {
 

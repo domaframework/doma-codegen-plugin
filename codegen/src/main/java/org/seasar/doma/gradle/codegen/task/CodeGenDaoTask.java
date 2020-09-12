@@ -24,7 +24,7 @@ public class CodeGenDaoTask extends DefaultTask {
   private final Property<Generator> generator = getProject().getObjects().property(Generator.class);
 
   private final Property<LanguageType> languageType =
-          getProject().getObjects().property(LanguageType.class);
+      getProject().getObjects().property(LanguageType.class);
 
   private final DirectoryProperty sourceDir = getProject().getObjects().directoryProperty();
 
@@ -73,11 +73,12 @@ public class CodeGenDaoTask extends DefaultTask {
 
   private void generateDao(DaoDesc daoDesc) {
     File sourceFile =
-        FileUtil.createFile(languageType.get(), sourceDir.getAsFile().get(), daoDesc.getQualifiedName());
+        FileUtil.createFile(
+            languageType.get(), sourceDir.getAsFile().get(), daoDesc.getQualifiedName());
     GenerationContext context =
         new GenerationContext(
             daoDesc,
-                sourceFile,
+            sourceFile,
             daoDesc.getTemplateName(),
             encoding.get(),
             daoConfig.getOverwrite().get());

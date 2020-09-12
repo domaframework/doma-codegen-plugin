@@ -37,7 +37,7 @@ public class CodeGenSqlTestTask extends DefaultTask {
   private final Property<Generator> generator = getProject().getObjects().property(Generator.class);
 
   private final Property<LanguageType> languageType =
-          getProject().getObjects().property(LanguageType.class);
+      getProject().getObjects().property(LanguageType.class);
 
   private final DirectoryProperty testSourceDir = getProject().getObjects().directoryProperty();
 
@@ -84,7 +84,7 @@ public class CodeGenSqlTestTask extends DefaultTask {
   public DirectoryProperty getTestSourceDir() {
     return testSourceDir;
   }
-  
+
   @Internal
   public Property<String> getEncoding() {
     return encoding;
@@ -118,7 +118,8 @@ public class CodeGenSqlTestTask extends DefaultTask {
 
   private void generateSqlTestCase(SqlTestDesc sqlTestDesc) {
     File sourceFile =
-        FileUtil.createFile(languageType.get(), testSourceDir.get().getAsFile(), sqlTestDesc.getQualifiedName());
+        FileUtil.createFile(
+            languageType.get(), testSourceDir.get().getAsFile(), sqlTestDesc.getQualifiedName());
     GenerationContext context =
         new GenerationContext(
             sqlTestDesc, sourceFile, sqlTestDesc.getTemplateName(), encoding.get(), true);

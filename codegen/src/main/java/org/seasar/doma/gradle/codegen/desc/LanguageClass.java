@@ -3,7 +3,7 @@ package org.seasar.doma.gradle.codegen.desc;
 import java.util.Objects;
 
 public class LanguageClass {
-  
+
   private final String className;
   private final String defaultValue;
 

@@ -33,9 +33,9 @@ public class EntityPropertyDesc {
   protected boolean timestamp;
 
   protected String entityClassName;
-  
+
   protected boolean nullable;
-  
+
   protected String defaultValue;
 
   public void setName(String name) {
