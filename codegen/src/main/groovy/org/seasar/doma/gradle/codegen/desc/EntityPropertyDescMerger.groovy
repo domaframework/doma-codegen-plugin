@@ -92,7 +92,7 @@ class EntityPropertyDescMerger {
           case SEQUENCE:
             dest.setGenerationType(GenerationType.SEQUENCE);
             if (src.sequenceGenerator != null) {
-              dest.setInitialValue(src.sequenceGenerator.initialValue());
+              dest.setInitialValue(src.sequenceGenerator.getDefaultValue());
               dest.setAllocationSize(src.sequenceGenerator.allocationSize());
               dest.setAllocationSize(src.sequenceGenerator.allocationSize());
             }
@@ -100,7 +100,7 @@ class EntityPropertyDescMerger {
           case TABLE:
             dest.setGenerationType(GenerationType.TABLE);
             if (src.tableGenerator != null) {
-              dest.setInitialValue(src.tableGenerator.initialValue());
+              dest.setInitialValue(src.tableGenerator.getDefaultValue());
               dest.setAllocationSize(src.tableGenerator.allocationSize());
               dest.setAllocationSize(src.tableGenerator.allocationSize());
             }

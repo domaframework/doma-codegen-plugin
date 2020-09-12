@@ -1,0 +1,22 @@
+package example.entity
+
+import org.seasar.doma.Column
+import org.seasar.doma.Entity
+import org.seasar.doma.GeneratedValue
+import org.seasar.doma.GenerationType
+import org.seasar.doma.Id
+import org.seasar.doma.Table
+
+/**
+ * COMMENT for HOGE
+ */
+@Entity
+@Table(name = "HOGE")
+class Hoge {
+
+    /** COMMENT for ID */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    var id: Int = -1
+}

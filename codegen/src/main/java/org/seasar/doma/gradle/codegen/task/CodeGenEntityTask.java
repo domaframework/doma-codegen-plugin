@@ -1,6 +1,5 @@
 package org.seasar.doma.gradle.codegen.task;
 
-import java.io.File;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.ListProperty;
@@ -13,12 +12,15 @@ import org.seasar.doma.gradle.codegen.GlobalFactory;
 import org.seasar.doma.gradle.codegen.desc.EntityDesc;
 import org.seasar.doma.gradle.codegen.desc.EntityListenerDesc;
 import org.seasar.doma.gradle.codegen.desc.EntityListenerDescFactory;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDesc;
 import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDescFactory;
 import org.seasar.doma.gradle.codegen.extension.EntityConfig;
 import org.seasar.doma.gradle.codegen.generator.GenerationContext;
 import org.seasar.doma.gradle.codegen.generator.Generator;
 import org.seasar.doma.gradle.codegen.util.FileUtil;
+
+import java.io.File;
 
 public class CodeGenEntityTask extends DefaultTask {
 
@@ -29,6 +31,9 @@ public class CodeGenEntityTask extends DefaultTask {
       getProject().getObjects().property(GlobalFactory.class);
 
   private final Property<Generator> generator = getProject().getObjects().property(Generator.class);
+
+  private final Property<LanguageType> languageType =
+      getProject().getObjects().property(LanguageType.class);
 
   private final DirectoryProperty sourceDir = getProject().getObjects().directoryProperty();
 
@@ -49,6 +54,11 @@ public class CodeGenEntityTask extends DefaultTask {
   @Internal
   public Property<Generator> getGenerator() {
     return generator;
+  }
+
+  @Internal
+  public Property<LanguageType> getLanguageType() {
+    return languageType;
   }
 
   @OutputDirectory
@@ -107,12 +117,13 @@ public class CodeGenEntityTask extends DefaultTask {
   }
 
   private void generateEntity(EntityDesc entityDesc) {
-    File javaFile =
-        FileUtil.createJavaFile(sourceDir.get().getAsFile(), entityDesc.getQualifiedName());
+    File sourceFile =
+        FileUtil.createFile(
+            languageType.get(), sourceDir.get().getAsFile(), entityDesc.getQualifiedName());
     GenerationContext context =
         new GenerationContext(
             entityDesc,
-            javaFile,
+                sourceFile,
             entityDesc.getTemplateName(),
             encoding.get(),
             entityConfig.getOverwrite().get());
@@ -120,12 +131,13 @@ public class CodeGenEntityTask extends DefaultTask {
   }
 
   private void generateEntityListener(EntityListenerDesc entityListenerDesc) {
-    File javaFile =
-        FileUtil.createJavaFile(sourceDir.get().getAsFile(), entityListenerDesc.getQualifiedName());
+    File sourceFile =
+        FileUtil.createFile(
+            languageType.get(), sourceDir.get().getAsFile(), entityListenerDesc.getQualifiedName());
     GenerationContext context =
         new GenerationContext(
             entityListenerDesc,
-            javaFile,
+                sourceFile,
             entityListenerDesc.getTemplateName(),
             encoding.get(),
             entityConfig.getOverwriteListener().get());
@@ -133,13 +145,15 @@ public class CodeGenEntityTask extends DefaultTask {
   }
 
   private void generateMappedSuperclass(MappedSuperclassDesc mappedSuperclassDesc) {
-    File javaFile =
-        FileUtil.createJavaFile(
-            sourceDir.get().getAsFile(), mappedSuperclassDesc.getQualifiedName());
+    File sourceFile =
+        FileUtil.createFile(
+            languageType.get(),
+            sourceDir.get().getAsFile(),
+            mappedSuperclassDesc.getQualifiedName());
     GenerationContext context =
         new GenerationContext(
             mappedSuperclassDesc,
-            javaFile,
+                sourceFile,
             mappedSuperclassDesc.getTemplateName(),
             encoding.get(),
             entityConfig.getOverwriteListener().get());

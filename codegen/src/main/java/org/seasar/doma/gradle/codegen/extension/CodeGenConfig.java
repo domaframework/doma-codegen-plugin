@@ -1,14 +1,8 @@
 package org.seasar.doma.gradle.codegen.extension;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.sql.Driver;
-import java.util.Collections;
-import java.util.List;
-import javax.inject.Inject;
-import javax.sql.DataSource;
 import org.gradle.api.Action;
 import org.gradle.api.Project;
+import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileTree;
 import org.gradle.api.model.ObjectFactory;
@@ -16,6 +10,8 @@ import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
 import org.seasar.doma.gradle.codegen.GlobalFactory;
+import org.seasar.doma.gradle.codegen.desc.LanguageClassResolver;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 import org.seasar.doma.gradle.codegen.dialect.CodeGenDialect;
 import org.seasar.doma.gradle.codegen.dialect.CodeGenDialectRegistry;
 import org.seasar.doma.gradle.codegen.exception.CodeGenException;
@@ -23,6 +19,14 @@ import org.seasar.doma.gradle.codegen.generator.Generator;
 import org.seasar.doma.gradle.codegen.message.Message;
 import org.seasar.doma.gradle.codegen.util.ClassUtil;
 import org.seasar.doma.gradle.codegen.util.JdbcUtil;
+
+import javax.inject.Inject;
+import javax.sql.DataSource;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.sql.Driver;
+import java.util.Collections;
+import java.util.List;
 
 public class CodeGenConfig {
 
@@ -49,6 +53,10 @@ public class CodeGenConfig {
   private final ListProperty<String> tableTypes;
 
   private final Property<String> versionColumnNamePattern;
+
+  private final Property<LanguageType> languageType;
+
+  private final Property<LanguageClassResolver> languageClassResolver;
 
   private final Property<String> templateEncoding;
 
@@ -89,6 +97,8 @@ public class CodeGenConfig {
     ignoredTableNamePattern = objects.property(String.class);
     tableTypes = objects.listProperty(String.class);
     versionColumnNamePattern = objects.property(String.class);
+    languageType = objects.property(LanguageType.class);
+    languageClassResolver = objects.property(LanguageClassResolver.class);
     templateEncoding = objects.property(String.class);
     templateDir = objects.directoryProperty();
     encoding = objects.property(String.class);
@@ -115,10 +125,12 @@ public class CodeGenConfig {
     ignoredTableNamePattern.set(".*\\$.*");
     tableTypes.set(Collections.singletonList("TABLE"));
     versionColumnNamePattern.set("VERSION([_]?NO)?");
+    languageType.set(LanguageType.JAVA);
+    languageClassResolver.set(languageClassResolverProvider());
     templateEncoding.set(StandardCharsets.UTF_8.name());
     encoding.set(StandardCharsets.UTF_8.name());
-    sourceDir.set(project.file("src/main/java"));
-    testSourceDir.set(project.file("src/test/java"));
+    sourceDir.set(sourceDirProvider(project));
+    testSourceDir.set(testSourceDirProvider(project));
     resourceDir.set(project.file("src/main/resources"));
     generator.set(generatorProvider());
 
@@ -154,9 +166,25 @@ public class CodeGenConfig {
         });
   }
 
+  private Provider<LanguageClassResolver> languageClassResolverProvider() {
+    return languageType.map(LanguageType::getResolver);
+  }
+
+  private Provider<Directory> sourceDirProvider(Project project) {
+    return languageType.map(
+        it -> project.getLayout().getProjectDirectory().dir("src/main/" + it.name().toLowerCase()));
+  }
+
+  private Provider<Directory> testSourceDirProvider(Project project) {
+    return languageType.map(
+        it -> project.getLayout().getProjectDirectory().dir("src/test/" + it.name().toLowerCase()));
+  }
+
   private Provider<Generator> generatorProvider() {
     return globalFactory.map(
-        it -> it.createGenerator(templateEncoding.get(), templateDir.getAsFile().getOrNull()));
+        it ->
+            it.createGenerator(
+                languageType.get(), templateEncoding.get(), templateDir.getAsFile().getOrNull()));
   }
 
   private Provider<FileTree> sqlFilesProvider() {
@@ -299,6 +327,22 @@ public class CodeGenConfig {
 
   public void setVersionColumnNamePattern(String versionColumnNamePattern) {
     this.versionColumnNamePattern.set(versionColumnNamePattern);
+  }
+
+  public Property<LanguageType> getLanguageType() {
+    return languageType;
+  }
+
+  public void setLanguageType(LanguageType languageType) {
+    this.languageType.set(languageType);
+  }
+
+  public Property<LanguageClassResolver> getLanguageClassResolver() {
+    return languageClassResolver;
+  }
+
+  public void setLanguageClassResolver(LanguageClassResolver languageClassResolver) {
+    this.languageClassResolver.set(languageClassResolver);
   }
 
   public Property<String> getTemplateEncoding() {

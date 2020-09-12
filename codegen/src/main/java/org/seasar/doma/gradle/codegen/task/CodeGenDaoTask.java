@@ -10,6 +10,7 @@ import org.gradle.api.tasks.Nested;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
 import org.seasar.doma.gradle.codegen.desc.DaoDesc;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 import org.seasar.doma.gradle.codegen.extension.DaoConfig;
 import org.seasar.doma.gradle.codegen.generator.GenerationContext;
 import org.seasar.doma.gradle.codegen.generator.Generator;
@@ -21,6 +22,9 @@ public class CodeGenDaoTask extends DefaultTask {
       getProject().getObjects().listProperty(DaoDesc.class);
 
   private final Property<Generator> generator = getProject().getObjects().property(Generator.class);
+
+  private final Property<LanguageType> languageType =
+          getProject().getObjects().property(LanguageType.class);
 
   private final DirectoryProperty sourceDir = getProject().getObjects().directoryProperty();
 
@@ -36,6 +40,11 @@ public class CodeGenDaoTask extends DefaultTask {
   @Internal
   public Property<Generator> getGenerator() {
     return generator;
+  }
+
+  @Internal
+  public Property<LanguageType> getLanguageType() {
+    return languageType;
   }
 
   @OutputDirectory
@@ -63,12 +72,12 @@ public class CodeGenDaoTask extends DefaultTask {
   }
 
   private void generateDao(DaoDesc daoDesc) {
-    File javaFile =
-        FileUtil.createJavaFile(sourceDir.getAsFile().get(), daoDesc.getQualifiedName());
+    File sourceFile =
+        FileUtil.createFile(languageType.get(), sourceDir.getAsFile().get(), daoDesc.getQualifiedName());
     GenerationContext context =
         new GenerationContext(
             daoDesc,
-            javaFile,
+                sourceFile,
             daoDesc.getTemplateName(),
             encoding.get(),
             daoConfig.getOverwrite().get());

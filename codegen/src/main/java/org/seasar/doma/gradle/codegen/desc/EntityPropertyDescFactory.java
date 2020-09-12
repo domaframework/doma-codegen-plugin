@@ -25,6 +25,8 @@ public class EntityPropertyDescFactory {
   protected final CodeGenDialect dialect;
 
   protected final EntityPropertyClassNameResolver propertyClassNameResolver;
+  
+  protected final LanguageClassResolver languageClassResolver;
 
   protected final Pattern versionColumnNamePattern;
 
@@ -39,6 +41,7 @@ public class EntityPropertyDescFactory {
   public EntityPropertyDescFactory(
       CodeGenDialect dialect,
       EntityPropertyClassNameResolver propertyClassNameResolver,
+      LanguageClassResolver languageClassResolver,
       String versionColumnNamePattern,
       GenerationType generationType,
       Long initialValue,
@@ -50,11 +53,15 @@ public class EntityPropertyDescFactory {
     if (propertyClassNameResolver == null) {
       throw new CodeGenNullPointerException("propertyClassNameResolver");
     }
+    if (languageClassResolver == null) {
+      throw new CodeGenNullPointerException("languageClassResolver");
+    }
     if (versionColumnNamePattern == null) {
       throw new CodeGenNullPointerException("versionColumnNamePattern");
     }
     this.dialect = dialect;
     this.propertyClassNameResolver = propertyClassNameResolver;
+    this.languageClassResolver = languageClassResolver;
     this.versionColumnNamePattern =
         Pattern.compile(versionColumnNamePattern, Pattern.CASE_INSENSITIVE);
     this.generationType = generationType;
@@ -97,7 +104,7 @@ public class EntityPropertyDescFactory {
       }
     }
     propertyDesc.setComment(columnMeta.getComment());
-    handlePropertyClassName(entityDesc, propertyDesc, columnMeta);
+    handlePropertyClass(entityDesc, propertyDesc, columnMeta);
     descriminateType(entityDesc, propertyDesc, columnMeta);
     handleShowColumnName(entityDesc, propertyDesc, columnMeta);
     handleVersion(entityDesc, propertyDesc, columnMeta);
@@ -111,7 +118,7 @@ public class EntityPropertyDescFactory {
     propertyDesc.setName(name);
   }
 
-  protected void handlePropertyClassName(
+  protected void handlePropertyClass(
       EntityDesc entityDesc, EntityPropertyDesc propertyDesc, ColumnMeta columnMeta) {
     String defaultClassName = dialect.getMappedPropertyClassName(columnMeta);
     String className =
@@ -125,7 +132,12 @@ public class EntityPropertyDescFactory {
               columnMeta.getSqlType()));
       className = String.class.getName();
     }
-    propertyDesc.setPropertyClassName(className);
+    LanguageClass languageClass = languageClassResolver.resolve(className, columnMeta);
+    propertyDesc.setPropertyClassName(languageClass.getClassName());
+    propertyDesc.setDefaultValue(languageClass.getDefaultValue());
+    if (columnMeta.isNullable() || "null".equals(languageClass.getDefaultValue())) {
+      propertyDesc.setNullable(true);
+    }
   }
 
   protected void descriminateType(

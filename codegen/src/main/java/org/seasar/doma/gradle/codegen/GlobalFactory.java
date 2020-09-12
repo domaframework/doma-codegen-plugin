@@ -10,6 +10,8 @@ import org.seasar.doma.gradle.codegen.desc.EntityListenerDescFactory;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyClassNameResolver;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyDescFactory;
 import org.seasar.doma.gradle.codegen.desc.GenerationType;
+import org.seasar.doma.gradle.codegen.desc.LanguageClassResolver;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDescFactory;
 import org.seasar.doma.gradle.codegen.desc.NamingType;
 import org.seasar.doma.gradle.codegen.desc.SqlDescFactory;
@@ -51,6 +53,7 @@ public class GlobalFactory {
   public EntityPropertyDescFactory createEntityPropertyDescFactory(
       CodeGenDialect dialect,
       EntityPropertyClassNameResolver propertyClassNameResolver,
+      LanguageClassResolver languageClassResolver,
       String versionColumnNamePattern,
       GenerationType generationType,
       Long initialValue,
@@ -59,6 +62,7 @@ public class GlobalFactory {
     return new EntityPropertyDescFactory(
         dialect,
         propertyClassNameResolver,
+        languageClassResolver,
         versionColumnNamePattern,
         generationType,
         initialValue,
@@ -129,7 +133,8 @@ public class GlobalFactory {
     return new SqlDescFactory(templatePrimaryDir, dialect);
   }
 
-  public Generator createGenerator(String templateEncoding, File templatePrimaryDir) {
-    return new Generator(templateEncoding, templatePrimaryDir);
+  public Generator createGenerator(
+      LanguageType languageType, String templateEncoding, File templatePrimaryDir) {
+    return new Generator(languageType, templateEncoding, templatePrimaryDir);
   }
 }

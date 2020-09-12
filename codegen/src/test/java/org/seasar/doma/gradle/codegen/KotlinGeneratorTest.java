@@ -18,7 +18,8 @@ import org.seasar.doma.gradle.codegen.desc.EntityListenerDescFactory;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyClassNameResolver;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyDescFactory;
 import org.seasar.doma.gradle.codegen.desc.GenerationType;
-import org.seasar.doma.gradle.codegen.desc.JavaClassResolver;
+import org.seasar.doma.gradle.codegen.desc.KotlinClassResolver;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDesc;
 import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDescFactory;
 import org.seasar.doma.gradle.codegen.desc.NamingType;
@@ -36,13 +37,13 @@ import org.seasar.doma.gradle.codegen.meta.ColumnMeta;
 import org.seasar.doma.gradle.codegen.meta.TableMeta;
 import org.seasar.doma.gradle.codegen.util.ResourceUtil;
 
-public class GeneratorTest {
+public class KotlinGeneratorTest {
 
   private GlobalFactory factory = new GlobalFactory();
 
   private CodeGenDialect dialect = new PostgresCodeGenDialect();
 
-  private GeneratorStub generator = new GeneratorStub();
+  private GeneratorStub generator = new GeneratorStub(LanguageType.KOTLIN);
 
   @Test
   public void testSimpleEntity(TestInfo testInfo) throws Exception {
@@ -75,7 +76,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -128,7 +129,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -181,7 +182,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -234,7 +235,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -287,7 +288,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -340,7 +341,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -381,7 +382,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -438,7 +439,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -479,7 +480,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -527,7 +528,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -575,7 +576,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, null, null, false);
+            dialect, resolver, new KotlinClassResolver(), "version", null, null, null, false);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -617,7 +618,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -658,7 +659,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", GenerationType.SEQUENCE, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", GenerationType.SEQUENCE, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -699,7 +700,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", GenerationType.TABLE, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", GenerationType.TABLE, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -748,7 +749,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -805,7 +806,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(file);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -846,7 +847,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -891,7 +892,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -936,7 +937,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -981,7 +982,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1026,7 +1027,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1071,7 +1072,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1132,7 +1133,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1183,7 +1184,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1234,7 +1235,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1285,7 +1286,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1336,7 +1337,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1387,7 +1388,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1437,7 +1438,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
+            dialect, resolver, new KotlinClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1465,112 +1466,6 @@ public class GeneratorTest {
     generator.generate(new SqlContext(sqlDesc));
 
     assertEquals(expect(testInfo), generator.getResult());
-  }
-
-  @Test
-  public void testSelectById_entitySuperclass(TestInfo testInfo) throws Exception {
-    ColumnMeta id = new ColumnMeta();
-    id.setComment("COMMENT for ID");
-    id.setName("ID");
-    id.setTypeName("integer");
-    id.setPrimaryKey(true);
-    id.setNullable(false);
-
-    ColumnMeta empName = new ColumnMeta();
-    empName.setComment("COMMENT for NAME");
-    empName.setName("EMP_NAME");
-    empName.setTypeName("varcar");
-
-    TableMeta tableMeta = new TableMeta();
-    tableMeta.setCatalogName("CATALOG");
-    tableMeta.setSchemaName("SCHEMA");
-    tableMeta.setName("HOGE");
-    tableMeta.setComment("COMMENT for HOGE");
-    tableMeta.addColumnMeta(id);
-    tableMeta.addColumnMeta(empName);
-
-    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
-    EntityPropertyDescFactory entityPropertyDescFactory =
-        factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
-    EntityDescFactory entityDescFactory =
-        factory.createEntityDescFactory(
-            "example.entity",
-            ParentEntity.class,
-            entityPropertyDescFactory,
-            NamingType.NONE,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            false,
-            false,
-            false);
-    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
-
-    DaoDesc daoDesc = new DaoDesc();
-    daoDesc.setPackageName("example.dao");
-    daoDesc.setSimpleName("HogeDao");
-
-    SqlDescFactory sqlDescFactory = factory.createSqlDescFactory(null, dialect);
-    SqlDesc sqlDesc =
-        sqlDescFactory.createSqlDesc(entityDesc, daoDesc, "dummy", "selectById.sql.ftl");
-    generator.generate(new SqlContext(sqlDesc));
-
-    assertEquals(expect(testInfo), generator.getResult());
-  }
-
-  @Test
-  public void testSelectById_entitySuperclass_columnNotFound(TestInfo testInfo) throws Exception {
-    ColumnMeta id = new ColumnMeta();
-    id.setComment("COMMENT for ID");
-    id.setName("ID");
-    id.setTypeName("integer");
-    id.setPrimaryKey(true);
-    id.setNullable(false);
-
-    ColumnMeta empName = new ColumnMeta();
-    empName.setComment("COMMENT for NAME");
-    empName.setName("NAME");
-    empName.setTypeName("varcar");
-
-    TableMeta tableMeta = new TableMeta();
-    tableMeta.setCatalogName("CATALOG");
-    tableMeta.setSchemaName("SCHEMA");
-    tableMeta.setName("HOGE");
-    tableMeta.setComment("COMMENT for HOGE");
-    tableMeta.addColumnMeta(id);
-    tableMeta.addColumnMeta(empName);
-
-    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
-    EntityPropertyDescFactory entityPropertyDescFactory =
-        factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
-    EntityDescFactory entityDescFactory =
-        factory.createEntityDescFactory(
-            "example.entity",
-            ParentEntity.class,
-            entityPropertyDescFactory,
-            NamingType.NONE,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            false,
-            false,
-            false);
-
-    try {
-      entityDescFactory.createEntityDesc(tableMeta);
-      fail();
-    } catch (CodeGenException e) {
-      System.out.println(e.getMessage());
-      assertEquals(Message.DOMAGEN0021, e.getMessageResource());
-    }
   }
 
   @Test
@@ -1591,348 +1486,6 @@ public class GeneratorTest {
         sqlFileTestDescFactory.createSqlFileTestDesc(
             "example.dao.SqlTest", Arrays.asList(select, insert, update));
     generator.generate(new SqlTestContext(sqlTestDesc));
-
-    assertEquals(expect(testInfo), generator.getResult());
-  }
-
-  @Test
-  public void testSelectById_number(TestInfo testInfo) throws Exception {
-    ColumnMeta id = new ColumnMeta();
-    id.setComment("COMMENT for ID");
-    id.setName("ID");
-    id.setTypeName("int4");
-    id.setPrimaryKey(true);
-    id.setNullable(false);
-
-    ColumnMeta empName = new ColumnMeta();
-    empName.setComment("COMMENT for NAME");
-    empName.setName("EMP_NAME");
-    empName.setTypeName("varchar");
-
-    TableMeta tableMeta = new TableMeta();
-    tableMeta.setCatalogName("CATALOG");
-    tableMeta.setSchemaName("SCHEMA");
-    tableMeta.setName("HOGE");
-    tableMeta.setComment("COMMENT for HOGE");
-    tableMeta.addColumnMeta(id);
-    tableMeta.addColumnMeta(empName);
-
-    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
-    EntityPropertyDescFactory entityPropertyDescFactory =
-        factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
-    EntityDescFactory entityDescFactory =
-        factory.createEntityDescFactory(
-            "example.entity",
-            null,
-            entityPropertyDescFactory,
-            NamingType.NONE,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            false,
-            false,
-            false);
-    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
-
-    DaoDesc daoDesc = new DaoDesc();
-    daoDesc.setPackageName("example.dao");
-    daoDesc.setSimpleName("HogeDao");
-
-    SqlDescFactory sqlDescFactory = factory.createSqlDescFactory(null, dialect);
-    SqlDesc sqlDesc =
-        sqlDescFactory.createSqlDesc(entityDesc, daoDesc, "dummy", "selectById.sql.ftl");
-
-    generator.generate(new SqlContext(sqlDesc));
-
-    assertEquals(expect(testInfo), generator.getResult());
-  }
-
-  @Test
-  public void testSelectById_varchar(TestInfo testInfo) throws Exception {
-    ColumnMeta id = new ColumnMeta();
-    id.setComment("COMMENT for ID");
-    id.setName("ID");
-    id.setTypeName("varchar");
-    id.setPrimaryKey(true);
-    id.setNullable(false);
-
-    ColumnMeta empName = new ColumnMeta();
-    empName.setComment("COMMENT for NAME");
-    empName.setName("EMP_NAME");
-    empName.setTypeName("varchar");
-
-    TableMeta tableMeta = new TableMeta();
-    tableMeta.setCatalogName("CATALOG");
-    tableMeta.setSchemaName("SCHEMA");
-    tableMeta.setName("HOGE");
-    tableMeta.setComment("COMMENT for HOGE");
-    tableMeta.addColumnMeta(id);
-    tableMeta.addColumnMeta(empName);
-
-    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
-    EntityPropertyDescFactory entityPropertyDescFactory =
-        factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
-    EntityDescFactory entityDescFactory =
-        factory.createEntityDescFactory(
-            "example.entity",
-            null,
-            entityPropertyDescFactory,
-            NamingType.NONE,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            false,
-            false,
-            false);
-    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
-
-    DaoDesc daoDesc = new DaoDesc();
-    daoDesc.setPackageName("example.dao");
-    daoDesc.setSimpleName("HogeDao");
-
-    SqlDescFactory sqlDescFactory = factory.createSqlDescFactory(null, dialect);
-    SqlDesc sqlDesc =
-        sqlDescFactory.createSqlDesc(entityDesc, daoDesc, "dummy", "selectById.sql.ftl");
-
-    generator.generate(new SqlContext(sqlDesc));
-
-    assertEquals(expect(testInfo), generator.getResult());
-  }
-
-  @Test
-  public void testSelectById_time(TestInfo testInfo) throws Exception {
-    ColumnMeta id = new ColumnMeta();
-    id.setComment("COMMENT for ID");
-    id.setName("ID");
-    id.setTypeName("time");
-    id.setPrimaryKey(true);
-    id.setNullable(false);
-
-    ColumnMeta empName = new ColumnMeta();
-    empName.setComment("COMMENT for NAME");
-    empName.setName("EMP_NAME");
-    empName.setTypeName("varchar");
-
-    TableMeta tableMeta = new TableMeta();
-    tableMeta.setCatalogName("CATALOG");
-    tableMeta.setSchemaName("SCHEMA");
-    tableMeta.setName("HOGE");
-    tableMeta.setComment("COMMENT for HOGE");
-    tableMeta.addColumnMeta(id);
-    tableMeta.addColumnMeta(empName);
-
-    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
-    EntityPropertyDescFactory entityPropertyDescFactory =
-        factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
-    EntityDescFactory entityDescFactory =
-        factory.createEntityDescFactory(
-            "example.entity",
-            null,
-            entityPropertyDescFactory,
-            NamingType.NONE,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            false,
-            false,
-            false);
-    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
-
-    DaoDesc daoDesc = new DaoDesc();
-    daoDesc.setPackageName("example.dao");
-    daoDesc.setSimpleName("HogeDao");
-
-    SqlDescFactory sqlDescFactory = factory.createSqlDescFactory(null, dialect);
-    SqlDesc sqlDesc =
-        sqlDescFactory.createSqlDesc(entityDesc, daoDesc, "dummy", "selectById.sql.ftl");
-
-    generator.generate(new SqlContext(sqlDesc));
-
-    assertEquals(expect(testInfo), generator.getResult());
-  }
-
-  @Test
-  public void testSelectById_date(TestInfo testInfo) throws Exception {
-    ColumnMeta id = new ColumnMeta();
-    id.setComment("COMMENT for ID");
-    id.setName("ID");
-    id.setTypeName("date");
-    id.setPrimaryKey(true);
-    id.setNullable(false);
-
-    ColumnMeta empName = new ColumnMeta();
-    empName.setComment("COMMENT for NAME");
-    empName.setName("EMP_NAME");
-    empName.setTypeName("varchar");
-
-    TableMeta tableMeta = new TableMeta();
-    tableMeta.setCatalogName("CATALOG");
-    tableMeta.setSchemaName("SCHEMA");
-    tableMeta.setName("HOGE");
-    tableMeta.setComment("COMMENT for HOGE");
-    tableMeta.addColumnMeta(id);
-    tableMeta.addColumnMeta(empName);
-
-    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
-    EntityPropertyDescFactory entityPropertyDescFactory =
-        factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
-    EntityDescFactory entityDescFactory =
-        factory.createEntityDescFactory(
-            "example.entity",
-            null,
-            entityPropertyDescFactory,
-            NamingType.NONE,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            false,
-            false,
-            false);
-    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
-
-    DaoDesc daoDesc = new DaoDesc();
-    daoDesc.setPackageName("example.dao");
-    daoDesc.setSimpleName("HogeDao");
-
-    SqlDescFactory sqlDescFactory = factory.createSqlDescFactory(null, dialect);
-    SqlDesc sqlDesc =
-        sqlDescFactory.createSqlDesc(entityDesc, daoDesc, "dummy", "selectById.sql.ftl");
-
-    generator.generate(new SqlContext(sqlDesc));
-
-    assertEquals(expect(testInfo), generator.getResult());
-  }
-
-  @Test
-  public void testSelectById_timestamp(TestInfo testInfo) throws Exception {
-    ColumnMeta id = new ColumnMeta();
-    id.setComment("COMMENT for ID");
-    id.setName("ID");
-    id.setTypeName("timestamp");
-    id.setPrimaryKey(true);
-    id.setNullable(false);
-
-    ColumnMeta empName = new ColumnMeta();
-    empName.setComment("COMMENT for NAME");
-    empName.setName("EMP_NAME");
-    empName.setTypeName("varchar");
-
-    TableMeta tableMeta = new TableMeta();
-    tableMeta.setCatalogName("CATALOG");
-    tableMeta.setSchemaName("SCHEMA");
-    tableMeta.setName("HOGE");
-    tableMeta.setComment("COMMENT for HOGE");
-    tableMeta.addColumnMeta(id);
-    tableMeta.addColumnMeta(empName);
-
-    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
-    EntityPropertyDescFactory entityPropertyDescFactory =
-        factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
-    EntityDescFactory entityDescFactory =
-        factory.createEntityDescFactory(
-            "example.entity",
-            null,
-            entityPropertyDescFactory,
-            NamingType.NONE,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            false,
-            false,
-            false);
-    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
-
-    DaoDesc daoDesc = new DaoDesc();
-    daoDesc.setPackageName("example.dao");
-    daoDesc.setSimpleName("HogeDao");
-
-    SqlDescFactory sqlDescFactory = factory.createSqlDescFactory(null, dialect);
-    SqlDesc sqlDesc =
-        sqlDescFactory.createSqlDesc(entityDesc, daoDesc, "dummy", "selectById.sql.ftl");
-
-    generator.generate(new SqlContext(sqlDesc));
-
-    assertEquals(expect(testInfo), generator.getResult());
-  }
-
-  @Test
-  public void testSelectByIdAndVersion(TestInfo testInfo) throws Exception {
-    ColumnMeta id = new ColumnMeta();
-    id.setComment("COMMENT for ID");
-    id.setName("ID");
-    id.setTypeName("integer");
-    id.setPrimaryKey(true);
-    id.setNullable(false);
-
-    ColumnMeta empName = new ColumnMeta();
-    empName.setComment("COMMENT for NAME");
-    empName.setName("EMP_NAME");
-    empName.setTypeName("varcar");
-
-    ColumnMeta version = new ColumnMeta();
-    version.setComment("COMMENT for VERSION");
-    version.setName("VERSION");
-    version.setTypeName("integer");
-
-    TableMeta tableMeta = new TableMeta();
-    tableMeta.setCatalogName("CATALOG");
-    tableMeta.setSchemaName("SCHEMA");
-    tableMeta.setName("HOGE");
-    tableMeta.setComment("COMMENT for HOGE");
-    tableMeta.addColumnMeta(id);
-    tableMeta.addColumnMeta(empName);
-    tableMeta.addColumnMeta(version);
-
-    EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
-    EntityPropertyDescFactory entityPropertyDescFactory =
-        factory.createEntityPropertyDescFactory(
-            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
-    EntityDescFactory entityDescFactory =
-        factory.createEntityDescFactory(
-            "example.entity",
-            null,
-            entityPropertyDescFactory,
-            NamingType.NONE,
-            null,
-            false,
-            false,
-            true,
-            true,
-            true,
-            false,
-            false,
-            false);
-    EntityDesc entityDesc = entityDescFactory.createEntityDesc(tableMeta);
-
-    DaoDesc daoDesc = new DaoDesc();
-    daoDesc.setPackageName("example.dao");
-    daoDesc.setSimpleName("HogeDao");
-
-    SqlDescFactory sqlDescFactory = factory.createSqlDescFactory(null, dialect);
-    SqlDesc sqlDesc =
-        sqlDescFactory.createSqlDesc(entityDesc, daoDesc, "dummy", "selectByIdAndVersion.sql.ftl");
-
-    generator.generate(new SqlContext(sqlDesc));
 
     assertEquals(expect(testInfo), generator.getResult());
   }

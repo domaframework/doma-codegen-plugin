@@ -1,0 +1,33 @@
+package example.entity
+
+import org.seasar.doma.jdbc.entity.EntityListener
+import org.seasar.doma.jdbc.entity.PostDeleteContext
+import org.seasar.doma.jdbc.entity.PostInsertContext
+import org.seasar.doma.jdbc.entity.PostUpdateContext
+import org.seasar.doma.jdbc.entity.PreDeleteContext
+import org.seasar.doma.jdbc.entity.PreInsertContext
+import org.seasar.doma.jdbc.entity.PreUpdateContext
+
+/**
+ * 
+ */
+class HogeEntityListener : EntityListener<HogeEntity> {
+
+    override fun preInsert(entity: HogeEntity, context: PreInsertContext<HogeEntity>) {
+    }
+
+    override fun preUpdate(entity: HogeEntity, context: PreUpdateContext<HogeEntity>) {
+    }
+
+    override fun preDelete(entity: HogeEntity, context: PreDeleteContext<HogeEntity>) {
+    }
+
+    override fun postInsert(entity: HogeEntity, context: PostInsertContext<HogeEntity>) {
+    }
+
+    override fun postUpdate(entity: HogeEntity, context: PostUpdateContext<HogeEntity>) {
+    }
+
+    override fun postDelete(entity: HogeEntity, context: PostDeleteContext<HogeEntity>) {
+    }
+}

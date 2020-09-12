@@ -1,0 +1,43 @@
+package example.dao
+
+import dao.config.MyConfig
+import example.entity.THogeEntity
+import org.seasar.doma.Dao
+import org.seasar.doma.Delete
+import org.seasar.doma.Insert
+import org.seasar.doma.Select
+import org.seasar.doma.Update
+
+/**
+ */
+@Dao(config = MyConfig.class)
+interface THogeEntityDao {
+
+    /**
+     * @param id
+     * @return the THogeEntity entity
+     */
+    @Select
+    fun selectById(id: Int): THogeEntity
+
+    /**
+     * @param entity
+     * @return affected rows
+     */
+    @Insert
+    fun insert(entity: THogeEntity): Int
+
+    /**
+     * @param entity
+     * @return affected rows
+     */
+    @Update
+    fun update(entity: THogeEntity): Int
+
+    /**
+     * @param entity
+     * @return affected rows
+     */
+    @Delete
+    fun delete(entity: THogeEntity): Int
+}

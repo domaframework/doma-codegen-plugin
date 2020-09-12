@@ -1,7 +1,5 @@
 package org.seasar.doma.gradle.codegen.task;
 
-import java.io.File;
-import javax.sql.DataSource;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.ListProperty;
@@ -17,6 +15,8 @@ import org.seasar.doma.gradle.codegen.desc.EntityDesc;
 import org.seasar.doma.gradle.codegen.desc.EntityDescFactory;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyClassNameResolver;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyDescFactory;
+import org.seasar.doma.gradle.codegen.desc.LanguageClassResolver;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 import org.seasar.doma.gradle.codegen.desc.NamingType;
 import org.seasar.doma.gradle.codegen.dialect.CodeGenDialect;
 import org.seasar.doma.gradle.codegen.extension.EntityConfig;
@@ -26,6 +26,9 @@ import org.seasar.doma.gradle.codegen.meta.ResultSetMetaReader;
 import org.seasar.doma.gradle.codegen.meta.TableMeta;
 import org.seasar.doma.gradle.codegen.util.ClassUtil;
 import org.seasar.doma.gradle.codegen.util.FileUtil;
+
+import javax.sql.DataSource;
+import java.io.File;
 
 public class CodeGenDtoTask extends DefaultTask {
 
@@ -53,6 +56,12 @@ public class CodeGenDtoTask extends DefaultTask {
 
   private final Property<String> versionColumnNamePattern =
       getProject().getObjects().property(String.class);
+
+  private final Property<LanguageType> languageType =
+      getProject().getObjects().property(LanguageType.class);
+
+  private final Property<LanguageClassResolver> languageClassResolver =
+      getProject().getObjects().property(LanguageClassResolver.class);
 
   private final Property<String> encoding = getProject().getObjects().property(String.class);
 
@@ -107,6 +116,16 @@ public class CodeGenDtoTask extends DefaultTask {
   @Internal
   public Property<String> getVersionColumnNamePattern() {
     return versionColumnNamePattern;
+  }
+
+  @Internal
+  public Property<LanguageType> getLanguageType() {
+    return languageType;
+  }
+
+  @Internal
+  public Property<LanguageClassResolver> getLanguageClassResolver() {
+    return languageClassResolver;
   }
 
   @OutputDirectory
@@ -177,6 +196,7 @@ public class CodeGenDtoTask extends DefaultTask {
         .createEntityPropertyDescFactory(
             dialect.get(),
             entityPropertyClassNameResolver,
+            languageClassResolver.get(),
             versionColumnNamePattern.get(),
             entityConfig.getGenerationType().getOrNull(),
             entityConfig.getInitialValue().getOrNull(),
@@ -212,12 +232,13 @@ public class CodeGenDtoTask extends DefaultTask {
   }
 
   protected void generateDto(EntityDesc entityDesc) {
-    File javaFile =
-        FileUtil.createJavaFile(sourceDir.get().getAsFile(), entityDesc.getQualifiedName());
+    File sourceFile =
+        FileUtil.createFile(
+            languageType.get(), sourceDir.get().getAsFile(), entityDesc.getQualifiedName());
     GenerationContext context =
         new GenerationContext(
             entityDesc,
-            javaFile,
+            sourceFile,
             entityDesc.getTemplateName(),
             encoding.get(),
             entityConfig.getOverwrite().get());

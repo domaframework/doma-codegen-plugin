@@ -1,0 +1,24 @@
+package example.entity
+
+import org.seasar.doma.Column
+import org.seasar.doma.Entity
+import org.seasar.doma.Id
+import org.seasar.doma.Table
+
+/**
+ * COMMENT for HOGE
+ */
+@Entity
+@Table(name = "HOGE")
+class Hoge {
+
+    /** COMMENT for ID */
+    @Id
+    @Column(name = "ID1")
+    var id1: Int = -1
+
+    /** COMMENT for ID */
+    @Id
+    @Column(name = "ID2")
+    var id2: Int = -1
+}
