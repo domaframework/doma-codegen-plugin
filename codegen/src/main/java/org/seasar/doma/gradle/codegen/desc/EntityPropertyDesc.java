@@ -8,6 +8,8 @@ public class EntityPropertyDesc {
 
   protected String propertyClassName;
 
+  protected String languageClassName;
+
   protected boolean id;
 
   protected GenerationType generationType;
@@ -56,6 +58,14 @@ public class EntityPropertyDesc {
 
   public String getPropertyClassSimpleName() {
     return ClassUtil.getSimpleName(propertyClassName);
+  }
+
+  public String getLanguageClassSimpleName() {
+    return ClassUtil.getSimpleName(languageClassName);
+  }
+
+  public void setLanguageClassName(String languageClassName) {
+    this.languageClassName = languageClassName;
   }
 
   public void setId(boolean id) {

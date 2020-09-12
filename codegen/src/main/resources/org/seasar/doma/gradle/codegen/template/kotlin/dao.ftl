@@ -27,7 +27,7 @@ interface ${simpleName} {
      * @return the <#if entityDesc.entityPrefix??>${entityDesc.entityPrefix}</#if>${entityDesc.simpleName}<#if entityDesc.entitySuffix??>${entityDesc.entitySuffix}</#if> entity
      */
     @Select
-    fun selectById(<#list entityDesc.idEntityPropertyDescs as property>${property.name}: ${property.propertyClassSimpleName}<#if property_has_next>, </#if></#list>): <#if entityDesc.entityPrefix??>${entityDesc.entityPrefix}</#if>${entityDesc.simpleName}<#if entityDesc.entitySuffix??>${entityDesc.entitySuffix}</#if>
+    fun selectById(<#list entityDesc.idEntityPropertyDescs as property>${property.name}: ${property.languageClassSimpleName}<#if property_has_next>, </#if></#list>): <#if entityDesc.entityPrefix??>${entityDesc.entityPrefix}</#if>${entityDesc.simpleName}<#if entityDesc.entitySuffix??>${entityDesc.entitySuffix}</#if>
 
 </#if>
 <#if entityDesc.idEntityPropertyDescs?size gt 0 && entityDesc.versionEntityPropertyDesc??>
@@ -39,7 +39,7 @@ interface ${simpleName} {
      * @return the <#if entityDesc.entityPrefix??>${entityDesc.entityPrefix}</#if>${entityDesc.simpleName}<#if entityDesc.entitySuffix??>${entityDesc.entitySuffix}</#if> entity
      */
     @Select(ensureResult = true)
-    fun selectByIdAndVersion(<#list entityDesc.idEntityPropertyDescs as property>${property.name}: ${property.propertyClassSimpleName}, </#list>${entityDesc.versionEntityPropertyDesc.name}: ${entityDesc.versionEntityPropertyDesc.propertyClassSimpleName}): <#if entityDesc.entityPrefix??>${entityDesc.entityPrefix}</#if>${entityDesc.simpleName}<#if entityDesc.entitySuffix??>${entityDesc.entitySuffix}</#if>
+    fun selectByIdAndVersion(<#list entityDesc.idEntityPropertyDescs as property>${property.name}: ${property.languageClassSimpleName}, </#list>${entityDesc.versionEntityPropertyDesc.name}: ${entityDesc.versionEntityPropertyDesc.languageClassSimpleName}): <#if entityDesc.entityPrefix??>${entityDesc.entityPrefix}</#if>${entityDesc.simpleName}<#if entityDesc.entitySuffix??>${entityDesc.entitySuffix}</#if>
 
 </#if>
     /**

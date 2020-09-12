@@ -48,7 +48,7 @@ class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>
   <#if property.showColumnName && property.columnName??>
     @Column(name = "${property.columnName}")
   </#if>
-    var ${property.name}: ${property.propertyClassSimpleName}<#if property.nullable>?</#if> = ${property.defaultValue}
+    var ${property.name}: ${property.languageClassSimpleName}<#if property.nullable>?</#if> = ${property.defaultValue}
 </#list>
 <#if originalStatesPropertyName??>
 

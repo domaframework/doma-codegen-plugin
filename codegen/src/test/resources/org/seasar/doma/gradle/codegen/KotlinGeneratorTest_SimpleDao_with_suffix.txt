@@ -21,6 +21,14 @@ interface HogeEntityDao {
     fun selectById(id: Int): HogeEntity
 
     /**
+     * @param id
+     * @param version
+     * @return the HogeEntity entity
+     */
+    @Select(ensureResult = true)
+    fun selectByIdAndVersion(id: Int, version: Int): HogeEntity
+
+    /**
      * @param entity
      * @return affected rows
      */
