@@ -10,7 +10,7 @@ gradlePlugin {
         compilePlugin {
             id = 'org.seasar.doma.codegen'
             displayName = 'Doma Codegen Plugin'
-            description = 'Generates Java source files and SQL files from Database'
+            description = 'Generates Java, Kotlin, and SQL files from Database'
             implementationClass = 'org.seasar.doma.gradle.codegen.CodeGenPlugin'
         }
     }
