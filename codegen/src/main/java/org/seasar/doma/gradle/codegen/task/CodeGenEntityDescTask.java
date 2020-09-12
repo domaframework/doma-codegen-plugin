@@ -15,6 +15,7 @@ import org.seasar.doma.gradle.codegen.desc.EntityDesc;
 import org.seasar.doma.gradle.codegen.desc.EntityDescFactory;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyClassNameResolver;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyDescFactory;
+import org.seasar.doma.gradle.codegen.desc.LanguageClassResolver;
 import org.seasar.doma.gradle.codegen.desc.NamingType;
 import org.seasar.doma.gradle.codegen.dialect.CodeGenDialect;
 import org.seasar.doma.gradle.codegen.extension.EntityConfig;
@@ -50,6 +51,9 @@ public class CodeGenEntityDescTask extends DefaultTask {
 
   private final Property<String> versionColumnNamePattern =
       getProject().getObjects().property(String.class);
+
+  private final Property<LanguageClassResolver> languageClassResolver =
+      getProject().getObjects().property(LanguageClassResolver.class);
 
   private EntityConfig entityConfig;
 
@@ -103,6 +107,11 @@ public class CodeGenEntityDescTask extends DefaultTask {
     return versionColumnNamePattern;
   }
 
+  @Internal
+  public Property<LanguageClassResolver> getLanguageClassResolver() {
+    return languageClassResolver;
+  }
+
   @Nested
   public EntityConfig getEntityConfig() {
     return entityConfig;
@@ -144,6 +153,7 @@ public class CodeGenEntityDescTask extends DefaultTask {
         .createEntityPropertyDescFactory(
             dialect.get(),
             entityPropertyClassNameResolver,
+            languageClassResolver.get(),
             versionColumnNamePattern.get(),
             entityConfig.getGenerationType().getOrNull(),
             entityConfig.getInitialValue().getOrNull(),

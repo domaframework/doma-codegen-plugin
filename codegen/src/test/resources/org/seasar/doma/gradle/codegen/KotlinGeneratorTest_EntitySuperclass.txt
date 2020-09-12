@@ -1,0 +1,20 @@
+package example.entity
+
+import example.hoge.CommonEntity
+import org.seasar.doma.Column
+import org.seasar.doma.Entity
+import org.seasar.doma.Id
+import org.seasar.doma.Table
+
+/**
+ * COMMENT for HOGE
+ */
+@Entity
+@Table(name = "HOGE")
+class Hoge : CommonEntity() {
+
+    /** COMMENT for ID */
+    @Id
+    @Column(name = "ID")
+    var id: Int = -1
+}

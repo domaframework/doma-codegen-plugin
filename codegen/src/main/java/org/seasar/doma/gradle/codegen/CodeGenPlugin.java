@@ -147,6 +147,8 @@ public class CodeGenPlugin implements Plugin<Project> {
     task.getTableNamePattern().set(extension.getTableNamePattern());
     task.getIgnoredTableNamePattern().set(extension.getIgnoredTableNamePattern());
     task.getVersionColumnNamePattern().set(extension.getVersionColumnNamePattern());
+    task.getLanguageType().set(extension.getLanguageType());
+    task.getLanguageClassResolver().set(extension.getLanguageClassResolver());
     task.getSourceDir().set(extension.getSourceDir());
     task.getEncoding().set(extension.getEncoding());
     task.setEntityConfig(extension.getEntityConfig());
@@ -161,12 +163,14 @@ public class CodeGenPlugin implements Plugin<Project> {
     task.getTableNamePattern().set(extension.getTableNamePattern());
     task.getIgnoredTableNamePattern().set(extension.getIgnoredTableNamePattern());
     task.getVersionColumnNamePattern().set(extension.getVersionColumnNamePattern());
+    task.getLanguageClassResolver().set(extension.getLanguageClassResolver());
     task.setEntityConfig(extension.getEntityConfig());
   }
 
   private void connectProperties(CodeGenEntityTask task, CodeGenConfig extension) {
     task.getGlobalFactory().set(extension.getGlobalFactory());
     task.getGenerator().set(extension.getGenerator());
+    task.getLanguageType().set(extension.getLanguageType());
     task.getSourceDir().set(extension.getSourceDir());
     task.getEncoding().set(extension.getEncoding());
     task.setEntityConfig(extension.getEntityConfig());
@@ -179,6 +183,7 @@ public class CodeGenPlugin implements Plugin<Project> {
 
   private void connectProperties(CodeGenDaoTask task, CodeGenConfig extension) {
     task.getGenerator().set(extension.getGenerator());
+    task.getLanguageType().set(extension.getLanguageType());
     task.getSourceDir().set(extension.getSourceDir());
     task.getEncoding().set(extension.getEncoding());
     task.setDaoConfig(extension.getDaoConfig());
@@ -200,6 +205,7 @@ public class CodeGenPlugin implements Plugin<Project> {
     task.getPassword().set(extension.getPassword());
     task.getUrl().set(extension.getUrl());
     task.getGenerator().set(extension.getGenerator());
+    task.getLanguageType().set(extension.getLanguageType());
     task.getTestSourceDir().set(extension.getTestSourceDir());
     task.getEncoding().set(extension.getEncoding());
     task.setSqlTestConfig(extension.getSqlTestConfig());

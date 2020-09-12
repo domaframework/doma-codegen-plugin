@@ -1,0 +1,28 @@
+package example.entity
+
+import org.seasar.doma.Column
+import org.seasar.doma.Entity
+import org.seasar.doma.Id
+import org.seasar.doma.Metamodel
+import org.seasar.doma.Table
+
+/**
+ * COMMENT for HOGE
+ */
+@Entity(metamodel = Metamodel())
+@Table(name = "HOGE")
+class Hoge {
+
+    /** COMMENT for ID */
+    @Id
+    @Column(name = "ID")
+    var id: Int = -1
+
+    /** COMMENT for NAME */
+    @Column(name = "EMP_NAME")
+    var empName: String? = null
+
+    /** COMMENT for VERSION */
+    @Column(name = "VERSION")
+    var version: Int = -1
+}

@@ -9,6 +9,7 @@ import org.gradle.api.tasks.Nested;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
 import org.seasar.doma.gradle.codegen.GlobalFactory;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 import org.seasar.doma.gradle.codegen.desc.SqlTestDesc;
 import org.seasar.doma.gradle.codegen.desc.SqlTestDescFactory;
 import org.seasar.doma.gradle.codegen.desc.SqlTestSuiteDesc;
@@ -34,6 +35,9 @@ public class CodeGenSqlTestTask extends DefaultTask {
   private final Property<String> url = getProject().getObjects().property(String.class);
 
   private final Property<Generator> generator = getProject().getObjects().property(Generator.class);
+
+  private final Property<LanguageType> languageType =
+      getProject().getObjects().property(LanguageType.class);
 
   private final DirectoryProperty testSourceDir = getProject().getObjects().directoryProperty();
 
@@ -69,6 +73,11 @@ public class CodeGenSqlTestTask extends DefaultTask {
   @Internal
   public Property<Generator> getGenerator() {
     return generator;
+  }
+
+  @Internal
+  public Property<LanguageType> getLanguageType() {
+    return languageType;
   }
 
   @OutputDirectory
@@ -108,11 +117,12 @@ public class CodeGenSqlTestTask extends DefaultTask {
   }
 
   private void generateSqlTestCase(SqlTestDesc sqlTestDesc) {
-    File javaFile =
-        FileUtil.createJavaFile(testSourceDir.get().getAsFile(), sqlTestDesc.getQualifiedName());
+    File sourceFile =
+        FileUtil.createFile(
+            languageType.get(), testSourceDir.get().getAsFile(), sqlTestDesc.getQualifiedName());
     GenerationContext context =
         new GenerationContext(
-            sqlTestDesc, javaFile, sqlTestDesc.getTemplateName(), encoding.get(), true);
+            sqlTestDesc, sourceFile, sqlTestDesc.getTemplateName(), encoding.get(), true);
     generator.get().generate(context);
   }
 }

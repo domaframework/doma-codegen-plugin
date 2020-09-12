@@ -2,6 +2,7 @@ package org.seasar.doma.gradle.codegen.util;
 
 import java.io.File;
 import java.io.IOException;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 import org.seasar.doma.gradle.codegen.exception.CodeGenException;
 import org.seasar.doma.gradle.codegen.message.Message;
 
@@ -15,9 +16,10 @@ public final class FileUtil {
     }
   }
 
-  public static File createJavaFile(File baseDir, String className) {
+  public static File createFile(LanguageType languageType, File baseDir, String className) {
     AssertionUtil.assertNotNull(baseDir, className);
-    String javaFilePath = className.replace('.', File.separatorChar) + ".java";
+    String javaFilePath =
+        className.replace('.', File.separatorChar) + "." + languageType.getFileExtension();
     return new File(baseDir, javaFilePath);
   }
 

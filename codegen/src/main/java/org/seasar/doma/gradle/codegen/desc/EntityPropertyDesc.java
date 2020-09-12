@@ -34,6 +34,10 @@ public class EntityPropertyDesc {
 
   protected String entityClassName;
 
+  protected boolean nullable;
+
+  protected String defaultValue;
+
   public void setName(String name) {
     this.name = name;
   }
@@ -156,5 +160,21 @@ public class EntityPropertyDesc {
 
   public void setEntityClassName(String entityClassName) {
     this.entityClassName = entityClassName;
+  }
+
+  public boolean isNullable() {
+    return nullable;
+  }
+
+  public void setNullable(boolean nullable) {
+    this.nullable = nullable;
+  }
+
+  public String getDefaultValue() {
+    return defaultValue;
+  }
+
+  public void setDefaultValue(String defaultValue) {
+    this.defaultValue = defaultValue;
   }
 }

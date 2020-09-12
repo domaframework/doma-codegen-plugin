@@ -19,6 +19,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Locale;
+import java.util.Objects;
+import org.seasar.doma.gradle.codegen.desc.LanguageType;
 import org.seasar.doma.gradle.codegen.exception.CodeGenException;
 import org.seasar.doma.gradle.codegen.message.Message;
 import org.seasar.doma.gradle.codegen.util.IOUtil;
@@ -34,23 +36,24 @@ public class Generator {
 
   protected final Configuration configuration;
 
-  protected Generator() {
-    this("UTF-8", null);
+  protected Generator(LanguageType languageType) {
+    this(languageType, "UTF-8", null);
   }
 
-  public Generator(String templateEncoding, File templatePrimaryDir) {
-    if (templateEncoding == null) {
-      throw new NullPointerException("templateFileEncoding");
-    }
+  public Generator(LanguageType languageType, String templateEncoding, File templatePrimaryDir) {
+    Objects.requireNonNull(languageType);
+    Objects.requireNonNull(templateEncoding);
     this.configuration = new Configuration(VERSION_2_3_30);
     configuration.setObjectWrapper(new DefaultObjectWrapper(VERSION_2_3_30));
     configuration.setSharedVariable("currentDate", new OnDemandDateModel());
     configuration.setEncoding(Locale.getDefault(), templateEncoding);
     configuration.setNumberFormat("0.#####");
-    configuration.setTemplateLoader(createTemplateLoader(templatePrimaryDir));
+    configuration.setTemplateLoader(createTemplateLoader(languageType, templatePrimaryDir));
   }
 
-  protected TemplateLoader createTemplateLoader(File templateFilePrimaryDir) {
+  protected TemplateLoader createTemplateLoader(
+      LanguageType languageType, File templateFilePrimaryDir) {
+    TemplateLoader defaultLoader = new ResourceTemplateLoader(DEFAULT_TEMPLATE_DIR_NAME);
     TemplateLoader primary = null;
     if (templateFilePrimaryDir != null) {
       try {
@@ -59,11 +62,11 @@ public class Generator {
         throw new CodeGenException(Message.DOMAGEN9001, e, e);
       }
     }
-    TemplateLoader secondary = new ResourceTemplateLoader(DEFAULT_TEMPLATE_DIR_NAME);
-    if (primary == null) {
-      return secondary;
+    if (primary != null) {
+      return new MultiTemplateLoader(new TemplateLoader[] {primary, defaultLoader});
     }
-    return new MultiTemplateLoader(new TemplateLoader[] {primary, secondary});
+    TemplateLoader secondary = new ResourceTemplateLoader(languageType.getTemplateDir());
+    return new MultiTemplateLoader(new TemplateLoader[] {secondary, defaultLoader});
   }
 
   public void generate(GenerationContext context) {

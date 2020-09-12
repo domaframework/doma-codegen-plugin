@@ -2,7 +2,7 @@ Doma CodeGen Plugin
 ===================
 
 Doma CodeGen Plugin is a gradle plugin.  
-It generates Java source files and SQL files from Database.
+It generates Java, Kotlin, and SQL files from Database.
 
 [![Java CI with Gradle](https://github.com/domaframework/doma-codegen-plugin/workflows/Java%20CI%20with%20Gradle/badge.svg)](https://github.com/domaframework/doma-codegen-plugin/actions?query=workflow%3A%22Java+CI+with+Gradle%22)
 [![Google Group : doma-user](https://img.shields.io/badge/Google%20Group-doma--user-orange.svg)](https://groups.google.com/g/doma-user)
@@ -119,11 +119,13 @@ domaCodeGen {
 | ignoredTableNamePattern | database ignored table pattern (Regex) | | `.*\$.*` |
 | tableTypes | database table type | such as TABLE, VIEW and so on | `TABLE` |
 | versionColumnNamePattern | database version column pattern (Regex) | | `VERSION([_]?NO)?` |
+| languageType | language of generation code | `org.seasar.doma.gradle.codegen.desc.LanguageType.JAVA`, `org.seasar.doma.gradle.codegen.desc.LanguageType.KOTLIN` | `org.seasar.doma.gradle.codegen.desc.LanguageType.JAVA` |
+| languageClassResolver | class resolver for language dedicated classes | | depends on `languageType` |
 | templateEncoding | encoding for freeMarker template files | | `UTF-8` |
 | templateDir | directory for user customized template files | | |
 | encoding | encoding for generated Java source files | | `UTF-8` |
-| sourceDir | directory for generated Java source files | | `src/main/java` |
-| testSourceDir | directory for generated Java test source files | | `src/test/java` |
+| sourceDir | directory for generated Java source files | | depends on `languageType` |
+| testSourceDir | directory for generated Java test source files | | depends on `languageType` |
 | resourceDir | directory for generated SQL files | | src/main/resources |
 | globalFactory | entry point to customize plugin behavior | | `new org.seasar.doma.gradle.codegen.GlobalFactory()` |
 
@@ -208,6 +210,32 @@ domaCodeGen {
 
 Customization
 -------------
+
+### Generating Kotlin code
+
+To generate Kotlin code, specify `LanguageType.KOTLIN` to the languageType option as follows:
+
+```groovy
+import org.seasar.doma.gradle.codegen.desc.LanguageType
+
+...
+
+domaCodeGen {
+    dev {
+        url = '...'
+        user = '...'
+        password = '...'
+        languageType = LanguageType.KOTLIN
+        entity {
+          packageName = 'org.example.entity'
+        }
+        dao {
+          packageName = 'org.example.dao'
+        }
+    }
+}
+```
+
 
 ### Using custom template files
 

@@ -1,4 +1,5 @@
 import org.h2.Driver
+import org.seasar.doma.gradle.codegen.desc.LanguageType
 import org.seasar.doma.gradle.codegen.jdbc.SimpleDataSource
 
 buildscript {
@@ -17,6 +18,7 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.10'
     id 'org.seasar.doma.compile' version '1.1.0'
 }
 
@@ -49,11 +51,24 @@ def _user = ''
 def _password = ''
 
 domaCodeGen {
-    dev {
+    java {
         def basePackage = 'codegen'
         url = _url.toString()
         user = _user
         password = _password
+        entity {
+            packageName = "${basePackage}.entity"
+        }
+        dao {
+            packageName = "${basePackage}.dao"
+        }
+    }
+    kotlin {
+        def basePackage = 'codegen'
+        url = _url.toString()
+        user = _user
+        password = _password
+        languageType = LanguageType.KOTLIN
         entity {
             packageName = "${basePackage}.entity"
         }
@@ -100,4 +115,5 @@ task createDb {
     }
 }
 
-tasks.getByName('domaCodeGenDevDbMeta').dependsOn(deleteSrc, createDb)
+tasks.getByName('domaCodeGenJavaDbMeta').dependsOn(deleteSrc, createDb)
+tasks.getByName('domaCodeGenKotlinDbMeta').dependsOn(deleteSrc, createDb)

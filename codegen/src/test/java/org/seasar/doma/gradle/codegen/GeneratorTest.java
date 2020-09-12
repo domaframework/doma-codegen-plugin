@@ -18,6 +18,7 @@ import org.seasar.doma.gradle.codegen.desc.EntityListenerDescFactory;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyClassNameResolver;
 import org.seasar.doma.gradle.codegen.desc.EntityPropertyDescFactory;
 import org.seasar.doma.gradle.codegen.desc.GenerationType;
+import org.seasar.doma.gradle.codegen.desc.JavaClassResolver;
 import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDesc;
 import org.seasar.doma.gradle.codegen.desc.MappedSuperclassDescFactory;
 import org.seasar.doma.gradle.codegen.desc.NamingType;
@@ -74,7 +75,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -127,7 +128,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -180,7 +181,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -233,7 +234,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -286,7 +287,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -339,7 +340,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -380,7 +381,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, null, null, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -437,7 +438,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, null, null, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -478,7 +479,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, null, null, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -526,7 +527,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, null, null, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -574,7 +575,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, null, null, false);
+            dialect, resolver, new JavaClassResolver(), "version", null, null, null, false);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -616,7 +617,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, null, null, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -657,7 +658,14 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", GenerationType.SEQUENCE, 100L, 50L, true);
+            dialect,
+            resolver,
+            new JavaClassResolver(),
+            "version",
+            GenerationType.SEQUENCE,
+            100L,
+            50L,
+            true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -698,7 +706,14 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", GenerationType.TABLE, 100L, 50L, true);
+            dialect,
+            resolver,
+            new JavaClassResolver(),
+            "version",
+            GenerationType.TABLE,
+            100L,
+            50L,
+            true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -747,7 +762,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, null, null, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, null, null, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -804,7 +819,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(file);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -845,7 +860,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -890,7 +905,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -935,7 +950,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -980,7 +995,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1025,7 +1040,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1070,7 +1085,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1131,7 +1146,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1182,7 +1197,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1233,7 +1248,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1284,7 +1299,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1335,7 +1350,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1386,7 +1401,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1436,7 +1451,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1491,7 +1506,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1546,7 +1561,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1619,7 +1634,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1675,7 +1690,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1731,7 +1746,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1787,7 +1802,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1843,7 +1858,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
@@ -1905,7 +1920,7 @@ public class GeneratorTest {
     EntityPropertyClassNameResolver resolver = factory.createEntityPropertyClassNameResolver(null);
     EntityPropertyDescFactory entityPropertyDescFactory =
         factory.createEntityPropertyDescFactory(
-            dialect, resolver, "version", null, 100L, 50L, true);
+            dialect, resolver, new JavaClassResolver(), "version", null, 100L, 50L, true);
     EntityDescFactory entityDescFactory =
         factory.createEntityDescFactory(
             "example.entity",
