@@ -31,9 +31,13 @@ jobs:
         working-directory: ./codegen
         run: ./gradlew build
 
-      - name: Test plugin
+      - name: Test plugin (generate Java code)
         working-directory: ./codegen-test
-        run: ./gradlew domaCodeGenDevAll build
+        run: ./gradlew domaCodeGenJavaAll build
+
+      - name: Test plugin (generate Kotlin code)
+        working-directory: ./codegen-test
+        run: ./gradlew domaCodeGenKotlinAll build
 
       - name: Set version
         id: set-version
