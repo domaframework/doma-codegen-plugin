@@ -7,5 +7,5 @@ fix: fix/*
 perf: perf/*
 refactor: refactor/*
 security: security/*
-skip-changelog: ['release', 'working']
+skip-changelog: ['release/*', 'working/*']
 test: test/*
