@@ -132,8 +132,9 @@ public class EntityPropertyDescFactory {
               columnMeta.getSqlType()));
       className = String.class.getName();
     }
+    propertyDesc.setPropertyClassName(className);
     LanguageClass languageClass = languageClassResolver.resolve(className, columnMeta);
-    propertyDesc.setPropertyClassName(languageClass.getClassName());
+    propertyDesc.setLanguageClassName(languageClass.getClassName());
     propertyDesc.setDefaultValue(languageClass.getDefaultValue());
     if (columnMeta.isNullable() || "null".equals(languageClass.getDefaultValue())) {
       propertyDesc.setNullable(true);

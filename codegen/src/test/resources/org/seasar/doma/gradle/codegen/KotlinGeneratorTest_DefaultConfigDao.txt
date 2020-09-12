@@ -20,6 +20,14 @@ interface HogeDao {
     fun selectById(id: Int): Hoge
 
     /**
+     * @param id
+     * @param version
+     * @return the Hoge entity
+     */
+    @Select(ensureResult = true)
+    fun selectByIdAndVersion(id: Int, version: Int): Hoge
+
+    /**
      * @param entity
      * @return affected rows
      */

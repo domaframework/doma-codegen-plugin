@@ -21,6 +21,14 @@ interface THogeEntityDao {
     fun selectById(id: Int): THogeEntity
 
     /**
+     * @param id
+     * @param version
+     * @return the THogeEntity entity
+     */
+    @Select(ensureResult = true)
+    fun selectByIdAndVersion(id: Int, version: Int): THogeEntity
+
+    /**
      * @param entity
      * @return affected rows
      */
