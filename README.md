@@ -8,6 +8,11 @@ It generates Java, Kotlin, and SQL files from Database.
 [![Google Group : doma-user](https://img.shields.io/badge/Google%20Group-doma--user-orange.svg)](https://groups.google.com/g/doma-user)
 [![Twitter](https://img.shields.io/badge/twitter-@domaframework-blue.svg?style=flat)](https://twitter.com/domaframework)
 
+Check latest version
+--------------------
+
+- [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.seasar.doma.codegen).
+
 How to use
 ----------
 
@@ -51,18 +56,49 @@ domaCodeGen {
 }
 ```
 
+The above code is equivalent to the following build.gradle.kts:
+
+```kotlin
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.h2database:h2:1.3.175")
+    }
+}
+
+plugins {
+    id("java")
+    // specify the Doma CodeGen Plugin with correct version
+    id("org.seasar.doma.codegen") version "x.x.x"
+}
+
+domaCodeGen {
+    register("dev") {
+        url.set("...")
+        user.set("...")
+        password.set("...")
+        entity {
+            packageName.set("org.example.entity")
+        }
+        dao {
+            packageName.set("org.example.dao")
+        }
+    }
+}
+```
+
 To generate all files, run `domaCodeGenDevAll` task:
 
 ```bash
 $ ./gradlew domaCodeGenDevAll
 ```
 
-See also [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.seasar.doma.codegen).
-
 Sample Project
 --------------
 
-- [codegen-sample](https://github.com/domaframework/codegen-sample)
+- [kotlin-sample](https://github.com/domaframework/kotlin-sample)
 
 Gradle Tasks
 ------------
@@ -115,19 +151,22 @@ domaCodeGen {
 | dataSource | database data source | | inferred by the url |
 | codeGenDialect | database dialect | | inferred by the url |
 | schemaName | database schema name | | |
-| tableNamePattern | database table pattern (Regex) | | `.*` |
-| ignoredTableNamePattern | database ignored table pattern (Regex) | | `.*\$.*` |
-| tableTypes | database table type | such as TABLE, VIEW and so on | `TABLE` |
-| versionColumnNamePattern | database version column pattern (Regex) | | `VERSION([_]?NO)?` |
-| languageType | language of generation code | `org.seasar.doma.gradle.codegen.desc.LanguageType.JAVA`, `org.seasar.doma.gradle.codegen.desc.LanguageType.KOTLIN` | `org.seasar.doma.gradle.codegen.desc.LanguageType.JAVA` |
+| tableNamePattern | database table pattern (Regex) | | ".*" |
+| ignoredTableNamePattern | database ignored table pattern (Regex) | | ".*\$.*" |
+| tableTypes | database table type | such as "TABLE", "VIEW", and so on | "TABLE" |
+| versionColumnNamePattern | database version column pattern (Regex) | | "VERSION([_]?NO)?" |
+| languageType | language of generation code | (*1) `LanguageType.JAVA`, `LanguageType.KOTLIN` | `LanguageType.JAVA` |
 | languageClassResolver | class resolver for language dedicated classes | | depends on `languageType` |
-| templateEncoding | encoding for freeMarker template files | | `UTF-8` |
+| templateEncoding | encoding for freeMarker template files | | "UTF-8" |
 | templateDir | directory for user customized template files | | |
-| encoding | encoding for generated Java source files | | `UTF-8` |
+| encoding | encoding for generated Java source files | | "UTF-8" |
 | sourceDir | directory for generated Java source files | | depends on `languageType` |
 | testSourceDir | directory for generated Java test source files | | depends on `languageType` |
-| resourceDir | directory for generated SQL files | | src/main/resources |
-| globalFactory | entry point to customize plugin behavior | | `new org.seasar.doma.gradle.codegen.GlobalFactory()` |
+| resourceDir | directory for generated SQL files | | "src/main/resources" |
+| globalFactory | entry point to customize plugin behavior | | (*2) The instance of `GlobalFactory` |
+
+- (*1) The FQN of `LanguageType` is `org.seasar.doma.gradle.codegen.desc.LanguageType`
+- (*2) The FQN of `GlobalFactory` is `org.seasar.doma.gradle.codegen.GlobalFactory`
 
 ### entity
 
@@ -149,9 +188,9 @@ domaCodeGen {
 | overwriteListener | allow to overwrite listeners or not |  | `false` |
 | superclassName | common superclass for generated entity classes |  | |
 | listenerSuperclassName | common superclass for generated entity listener classes |  | |
-| packageName | package name for generated entity class |  | `example.entity` |
-| generationType | generation type for entity identities | enum value of `org.seasar.doma.gradle.codegen.desc.GenerationType` | |
-| namingType | naming convention | enum value of org.`seasar.doma.gradle.codegen.desc.NamingType` | |
+| packageName | package name for generated entity class |  | "example.entity" |
+| generationType | generation type for entity identities | (*1) enum value of `GenerationType` | |
+| namingType | naming convention | (*2) enum value of `NamingType` | |
 | initialValue | initial value for entity identities |  | |
 | allocationSize | allocation size for entity identities |  | |
 | showCatalogName | whether to show catalog names or not |  | `false` |
@@ -167,6 +206,9 @@ domaCodeGen {
 | entityPropertyClassNamesFile | file used to resolve entity property classes |  | |
 | prefix | prefix for entity classes |  | |
 | suffix | suffix for entity classes |  | |
+
+- (*1) The FQN of `GenerationType` is `org.seasar.doma.gradle.codegen.desc.GenerationType`
+- (*2) The FQN of `NamingType` is `org.seasar.doma.gradle.codegen.NamingType`
 
 ### dao
 
@@ -185,8 +227,8 @@ domaCodeGen {
 | Option | Description | Values | Default |
 | :--- | :--- | :--- | :--- |
 | overwrite | whether to overwrite generated DAO files or not |  | `false` |
-| packageName | package name for generated DAO classes |  | `example.dao` |
-| suffix | suffix for Dao classes |  | `Dao` |
+| packageName | package name for generated DAO classes |  | "example.dao" |
+| suffix | suffix for Dao classes |  | "Dao" |
 | configClassName | `org.seasar.doma.jdbc.Config` implemented class name. Tha name is used at @Dao |  | `false` |
 
 ### sql
