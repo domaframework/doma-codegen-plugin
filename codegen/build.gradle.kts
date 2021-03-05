@@ -1,7 +1,7 @@
 plugins {
     id("groovy")
     id("java-gradle-plugin")
-    id("com.diffplug.spotless") version "5.10.2"
+    id("com.diffplug.spotless") version "5.11.0"
     id("com.gradle.plugin-publish") version "0.13.0"
 }
 
