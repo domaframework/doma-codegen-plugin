@@ -5,7 +5,7 @@ Doma CodeGen Plugin is a gradle plugin.
 It generates Java, Kotlin, and SQL files from Database.
 
 [![Java CI with Gradle](https://github.com/domaframework/doma-codegen-plugin/workflows/Java%20CI%20with%20Gradle/badge.svg)](https://github.com/domaframework/doma-codegen-plugin/actions?query=workflow%3A%22Java+CI+with+Gradle%22)
-[![Google Group : doma-user](https://img.shields.io/badge/Google%20Group-doma--user-orange.svg)](https://groups.google.com/g/doma-user)
+[![project chat](https://img.shields.io/badge/zulip-join_chat-green.svg)](https://domaframework.zulipchat.com)
 [![Twitter](https://img.shields.io/badge/twitter-@domaframework-blue.svg?style=flat)](https://twitter.com/domaframework)
 
 Check latest version
