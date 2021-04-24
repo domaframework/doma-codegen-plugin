@@ -79,7 +79,9 @@ domaCodeGen {
 }
 
 task deleteSrc {
-    delete 'src'
+    doLast {
+        delete 'src'
+    }
 }
 
 task createDb {
