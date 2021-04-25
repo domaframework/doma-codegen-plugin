@@ -7,7 +7,7 @@ import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.Nested;
-import org.gradle.api.tasks.OutputDirectory;
+import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.TaskAction;
 import org.seasar.doma.gradle.codegen.desc.DaoDesc;
 import org.seasar.doma.gradle.codegen.desc.LanguageType;
@@ -47,7 +47,7 @@ public class CodeGenDaoTask extends DefaultTask {
     return languageType;
   }
 
-  @OutputDirectory
+  @Optional
   public DirectoryProperty getSourceDir() {
     return sourceDir;
   }
