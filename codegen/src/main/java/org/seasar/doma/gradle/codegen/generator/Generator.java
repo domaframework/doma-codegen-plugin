@@ -62,11 +62,14 @@ public class Generator {
         throw new CodeGenException(Message.DOMAGEN9001, e, e);
       }
     }
-    if (primary != null) {
-      return new MultiTemplateLoader(new TemplateLoader[] {primary, defaultLoader});
-    }
     TemplateLoader secondary = new ResourceTemplateLoader(languageType.getTemplateDir());
-    return new MultiTemplateLoader(new TemplateLoader[] {secondary, defaultLoader});
+    TemplateLoader[] loaders;
+    if (primary != null) {
+      loaders = new TemplateLoader[] {primary, secondary, defaultLoader};
+    } else {
+      loaders = new TemplateLoader[] {secondary, defaultLoader};
+    }
+    return new MultiTemplateLoader(loaders);
   }
 
   public void generate(GenerationContext context) {
