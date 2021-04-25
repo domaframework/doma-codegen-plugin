@@ -86,6 +86,7 @@ public final class JdbcUtil {
             case "sqlite":
               return "sqlite";
             case "mysql":
+            case "mariadb":
               return "mysql";
             case "postgresql":
               return "postgres";
