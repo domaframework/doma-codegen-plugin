@@ -44,6 +44,12 @@ public class JdbcUtilTest {
   }
 
   @Test
+  public void testInferDriverClassName_mariadb() throws Exception {
+    String driverClassName = JdbcUtil.inferDriverClassName("jdbc:mariadb://localhost:3306/hoge");
+    assertEquals("org.mariadb.jdbc.Driver", driverClassName);
+  }
+
+  @Test
   public void testInferDriverClassName_unknown() throws Exception {
     String driverClassName = JdbcUtil.inferDriverClassName("jdbc:unknown://localhost/hoge");
     assertNull(driverClassName);
