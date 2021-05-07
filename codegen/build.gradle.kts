@@ -66,8 +66,12 @@ tasks {
     test {
         useJUnitPlatform()
     }
-    
+
     groovydoc {
         enabled = false
+    }
+
+    build {
+        dependsOn(spotlessApply)
     }
 }
