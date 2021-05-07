@@ -1,24 +1,19 @@
 # Release Operations
 
-## Run the Gradle release task
+## Dispatch the release workflow
 
-The Gradle release task creates a release commit and push it to the origin/master branch.
+Dispatch the [release workflow](.github/workflows/release.yml) as follows:
 
 ```
-$ git checkout master
-$ git pull
-$ ./gradlew release -Prelease.releaseVersion=1.0.0 -Prelease.newVersion=1.1.0-SNAPSHOT
+$ gh api repos/domaframework/doma-codegen-plugin/actions/workflows/release.yml/dispatches -F ref='master'
 ```
-
-The value of `release.releaseVersion` is decided by the draft name of
-[Releases](https://github.com/domaframework/doma/releases).
 
 ## Build and Publish with GitHub Action
 
 (No operation required)
 
-The GitHub Action workflow [Java CI with Gradle](.github/workflows/ci.yml) handles the above push event
-and publishes to the [Gradle Plugin Portal](https://plugins.gradle.org/).
+The [CI](.github/workflows/ci.yml) workflow follows the above release workflow
+and publishes the doma-codegen-plugin to the [Gradle Plugin Portal](https://plugins.gradle.org/).
 
 ## Publish release notes
 
