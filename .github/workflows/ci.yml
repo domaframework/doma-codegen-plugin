@@ -27,8 +27,8 @@ jobs:
         working-directory: ./codegen-test
         run: chmod +x gradlew
 
-      - name: Build plugin
-        run: ./gradlew build
+      - name: Assemble and Check
+        run: ./gradlew assemble check
 
       - name: Test plugin (generate Java code)
         working-directory: ./codegen-test
