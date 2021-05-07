@@ -67,11 +67,13 @@ public class CodeGenPlugin implements Plugin<Project> {
         task -> {
           task.setDescription("Reads database metadata.");
           connectProperties(task, codeGenConfig);
+          task.getOutputs().upToDateWhen(__ -> false);
         });
     entityDescTask.configure(
         task -> {
           task.setDescription("Creates entity descriptions.");
           task.dependsOn(dbMetaTask);
+          task.getOutputs().upToDateWhen(__ -> false);
           task.getTableMetaList().set(dbMetaTask.get().getTableMetaList());
           connectProperties(task, codeGenConfig);
         });
@@ -79,6 +81,7 @@ public class CodeGenPlugin implements Plugin<Project> {
         task -> {
           task.setDescription("Creates DAO descriptions.");
           task.dependsOn(entityDescTask);
+          task.getOutputs().upToDateWhen(__ -> false);
           task.getEntityDescList().set(entityDescTask.get().getEntityDescList());
           connectProperties(task, codeGenConfig);
         });
@@ -86,6 +89,7 @@ public class CodeGenPlugin implements Plugin<Project> {
         task -> {
           task.setDescription("Reads resultSet metadata and generate a DTO source file.");
           task.setGroup(TASK_GROUP_NAME);
+          task.getOutputs().upToDateWhen(__ -> false);
           connectProperties(task, codeGenConfig);
         });
     entityTask.configure(
@@ -93,6 +97,7 @@ public class CodeGenPlugin implements Plugin<Project> {
           task.setDescription("Generates entity source files.");
           task.setGroup(TASK_GROUP_NAME);
           task.dependsOn(entityDescTask);
+          task.getOutputs().upToDateWhen(__ -> false);
           task.getEntityDescList().set(entityDescTask.get().getEntityDescList());
           connectProperties(task, codeGenConfig);
         });
@@ -101,6 +106,7 @@ public class CodeGenPlugin implements Plugin<Project> {
           task.setDescription("Generates DAO source files.");
           task.setGroup(TASK_GROUP_NAME);
           task.dependsOn(daoDescTask);
+          task.getOutputs().upToDateWhen(__ -> false);
           task.getDaoDescList().set(daoDescTask.get().getDaoDescList());
           connectProperties(task, codeGenConfig);
         });
@@ -109,6 +115,7 @@ public class CodeGenPlugin implements Plugin<Project> {
           task.setDescription("Generates SQL files.");
           task.setGroup(TASK_GROUP_NAME);
           task.dependsOn(daoDescTask);
+          task.getOutputs().upToDateWhen(__ -> false);
           task.getDaoDescList().set(daoDescTask.get().getDaoDescList());
           connectProperties(task, codeGenConfig);
         });
@@ -117,6 +124,7 @@ public class CodeGenPlugin implements Plugin<Project> {
           task.setDescription("Generates SQL test source files.");
           task.setGroup(TASK_GROUP_NAME);
           task.shouldRunAfter(sqlTask);
+          task.getOutputs().upToDateWhen(__ -> false);
           connectProperties(task, codeGenConfig);
         });
     allTask.configure(
@@ -124,6 +132,7 @@ public class CodeGenPlugin implements Plugin<Project> {
           task.setDescription("Generates all.");
           task.setGroup(TASK_GROUP_NAME);
           task.dependsOn(entityTask, daoTask, sqlTask, sqlTestTask);
+          task.getOutputs().upToDateWhen(__ -> false);
         });
   }
 
