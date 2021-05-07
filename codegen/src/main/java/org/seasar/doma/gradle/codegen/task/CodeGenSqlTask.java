@@ -8,7 +8,6 @@ import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.Nested;
-import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.TaskAction;
 import org.seasar.doma.gradle.codegen.GlobalFactory;
 import org.seasar.doma.gradle.codegen.desc.DaoDesc;
@@ -59,7 +58,7 @@ public class CodeGenSqlTask extends DefaultTask {
     return templateDir;
   }
 
-  @Optional
+  @Internal
   public DirectoryProperty getResourceDir() {
     return resourceDir;
   }

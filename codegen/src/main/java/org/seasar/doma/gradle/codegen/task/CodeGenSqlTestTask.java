@@ -6,7 +6,6 @@ import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.Nested;
-import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.TaskAction;
 import org.seasar.doma.gradle.codegen.GlobalFactory;
 import org.seasar.doma.gradle.codegen.desc.LanguageType;
@@ -80,7 +79,7 @@ public class CodeGenSqlTestTask extends DefaultTask {
     return languageType;
   }
 
-  @Optional
+  @Internal
   public DirectoryProperty getTestSourceDir() {
     return testSourceDir;
   }
