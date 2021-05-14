@@ -29,6 +29,8 @@ public class CodeGenDbMetaTask extends DefaultTask {
   private final Property<CodeGenDialect> dialect =
       getProject().getObjects().property(CodeGenDialect.class);
 
+  private final Property<String> catalogName = getProject().getObjects().property(String.class);
+
   private final Property<String> schemaName = getProject().getObjects().property(String.class);
 
   private final Property<String> tableNamePattern =
@@ -58,6 +60,11 @@ public class CodeGenDbMetaTask extends DefaultTask {
   @Internal
   public Property<CodeGenDialect> getDialect() {
     return dialect;
+  }
+
+  @Internal
+  public Property<String> getCatalogName() {
+    return catalogName;
   }
 
   @Internal
@@ -95,6 +102,7 @@ public class CodeGenDbMetaTask extends DefaultTask {
         .createTableMetaReader(
             dialect.get(),
             dataSource.get(),
+            catalogName.getOrNull(),
             schemaName.getOrNull(),
             tableNamePattern.get(),
             ignoredTableNamePattern.get(),

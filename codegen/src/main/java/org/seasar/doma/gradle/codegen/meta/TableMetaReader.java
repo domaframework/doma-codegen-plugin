@@ -23,6 +23,8 @@ public class TableMetaReader {
 
   protected final DataSource dataSource;
 
+  protected final String catalogName;
+
   protected final String schemaName;
 
   protected final Pattern tableNamePattern;
@@ -34,6 +36,7 @@ public class TableMetaReader {
   public TableMetaReader(
       CodeGenDialect dialect,
       DataSource dataSource,
+      String catalogName,
       String schemaName,
       String tableNamePattern,
       String ignoredTableNamePattern,
@@ -55,6 +58,7 @@ public class TableMetaReader {
     }
     this.dialect = dialect;
     this.dataSource = dataSource;
+    this.catalogName = catalogName;
     this.schemaName = schemaName;
     this.tableNamePattern = Pattern.compile(tableNamePattern, Pattern.CASE_INSENSITIVE);
     this.ignoredTableNamePattern =
@@ -67,7 +71,10 @@ public class TableMetaReader {
     try {
       DatabaseMetaData metaData = con.getMetaData();
       List<TableMeta> tableMetas =
-          getTableMetas(metaData, schemaName != null ? schemaName : getDefaultSchemaName(metaData));
+          getTableMetas(
+              metaData,
+              catalogName,
+              schemaName != null ? schemaName : getDefaultSchemaName(metaData));
       for (TableMeta tableMeta : tableMetas) {
         Set<String> primaryKeySet = getPrimaryKeys(metaData, tableMeta);
         handleColumnMeta(metaData, tableMeta, primaryKeySet);
@@ -102,12 +109,15 @@ public class TableMetaReader {
     return dialect.getDefaultSchemaName(userName);
   }
 
-  protected List<TableMeta> getTableMetas(DatabaseMetaData metaData, String schemaName)
-      throws SQLException {
+  protected List<TableMeta> getTableMetas(
+      DatabaseMetaData metaData, String catalogName, String schemaName) throws SQLException {
     List<TableMeta> results = new ArrayList<TableMeta>();
     ResultSet rs =
         metaData.getTables(
-            null, schemaName, null, this.tableTypes.toArray(new String[this.tableTypes.size()]));
+            catalogName,
+            schemaName,
+            null,
+            this.tableTypes.toArray(new String[this.tableTypes.size()]));
     try {
       while (rs.next()) {
         TableMeta tableMeta = new TableMeta();

@@ -150,6 +150,7 @@ domaCodeGen {
 | password | JDBC password | | |
 | dataSource | database data source | | inferred by the url |
 | codeGenDialect | database dialect | | inferred by the url |
+| catalogName | database catalog name | | |
 | schemaName | database schema name | | |
 | tableNamePattern | database table pattern (Regex) | | ".*" |
 | ignoredTableNamePattern | database ignored table pattern (Regex) | | ".*\$.*" |
