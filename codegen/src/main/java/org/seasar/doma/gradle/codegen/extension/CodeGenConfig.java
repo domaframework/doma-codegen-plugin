@@ -43,6 +43,8 @@ public class CodeGenConfig {
 
   private final Property<String> url;
 
+  private final Property<String> catalogName;
+
   private final Property<String> schemaName;
 
   private final Property<String> tableNamePattern;
@@ -91,6 +93,7 @@ public class CodeGenConfig {
     url = objects.property(String.class);
     user = objects.property(String.class);
     password = objects.property(String.class);
+    catalogName = objects.property(String.class);
     schemaName = objects.property(String.class);
     tableNamePattern = objects.property(String.class);
     ignoredTableNamePattern = objects.property(String.class);
@@ -286,6 +289,14 @@ public class CodeGenConfig {
 
   public void setUrl(String url) {
     this.url.set(url);
+  }
+
+  public Property<String> getCatalogName() {
+    return catalogName;
+  }
+
+  public void setCatalogName(String catalogName) {
+    this.catalogName.set(catalogName);
   }
 
   public Property<String> getSchemaName() {

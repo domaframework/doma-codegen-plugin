@@ -140,6 +140,7 @@ public class CodeGenPlugin implements Plugin<Project> {
     task.getGlobalFactory().set(extension.getGlobalFactory());
     task.getDataSource().set(extension.getDataSource());
     task.getDialect().set(extension.getCodeGenDialect());
+    task.getCatalogName().set(extension.getCatalogName());
     task.getSchemaName().set(extension.getSchemaName());
     task.getTableTypes().set(extension.getTableTypes());
     task.getTableNamePattern().set(extension.getTableNamePattern());

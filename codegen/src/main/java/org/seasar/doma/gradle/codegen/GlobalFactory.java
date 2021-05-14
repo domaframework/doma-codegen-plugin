@@ -37,12 +37,19 @@ public class GlobalFactory {
   public TableMetaReader createTableMetaReader(
       CodeGenDialect dialect,
       DataSource dataSource,
+      String catalogName,
       String schemaName,
       String tableNamePattern,
       String ignoredTableNamePattern,
       List<String> tableTypes) {
     return new TableMetaReader(
-        dialect, dataSource, schemaName, tableNamePattern, ignoredTableNamePattern, tableTypes);
+        dialect,
+        dataSource,
+        catalogName,
+        schemaName,
+        tableNamePattern,
+        ignoredTableNamePattern,
+        tableTypes);
   }
 
   public ResultSetMetaReader createResultSetMetaReader(
