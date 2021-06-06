@@ -44,4 +44,12 @@ public interface CodeGenDialect {
   String convertToDateLiteral(String value);
 
   String convertToTimestampLiteral(String value);
+
+  /**
+   * Enclose the name with quotation marks.
+   *
+   * @param name the name of a database object such as a table, a column, and so on
+   * @return the name that is enclosed with quotation marks
+   */
+  String applyQuote(String name);
 }

@@ -10,6 +10,12 @@ import org.seasar.doma.gradle.codegen.meta.ColumnMeta;
 
 public class Mssql2008CodeGenDialect extends StandardCodeGenDialect {
 
+  /** the quotation mark of the start */
+  protected static final char OPEN_QUOTE = '[';
+
+  /** the quotation mark of the end */
+  protected static final char CLOSE_QUOTE = ']';
+
   public Mssql2008CodeGenDialect() {
     classNameMap.put("datetime", LocalDateTime.class.getName());
     classNameMap.put("datetime2", LocalDateTime.class.getName());
@@ -63,5 +69,10 @@ public class Mssql2008CodeGenDialect extends StandardCodeGenDialect {
       typeName = "numeric";
     }
     return super.getMappedPropertyClassName(columnMeta);
+  }
+
+  @Override
+  public String applyQuote(String name) {
+    return OPEN_QUOTE + name + CLOSE_QUOTE;
   }
 }
