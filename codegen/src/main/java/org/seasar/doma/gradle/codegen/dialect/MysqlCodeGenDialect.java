@@ -11,6 +11,12 @@ import org.seasar.doma.gradle.codegen.meta.ColumnMeta;
 
 public class MysqlCodeGenDialect extends StandardCodeGenDialect {
 
+  /** the quotation mark of the start */
+  protected static final char OPEN_QUOTE = '`';
+
+  /** the quotation mark of the end */
+  protected static final char CLOSE_QUOTE = '`';
+
   public MysqlCodeGenDialect() {
     classNameMap.put("bool", Boolean.class.getName());
     classNameMap.put("boolean", Boolean.class.getName());
@@ -80,5 +86,10 @@ public class MysqlCodeGenDialect extends StandardCodeGenDialect {
   @Override
   public boolean supportsSequence() {
     return true;
+  }
+
+  @Override
+  public String applyQuote(String name) {
+    return OPEN_QUOTE + name + CLOSE_QUOTE;
   }
 }

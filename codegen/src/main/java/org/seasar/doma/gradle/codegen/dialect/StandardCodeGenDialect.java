@@ -25,6 +25,12 @@ import org.seasar.doma.gradle.codegen.util.TableUtil;
 
 public class StandardCodeGenDialect implements CodeGenDialect {
 
+  /** the quotation mark of the start */
+  protected static final char OPEN_QUOTE = '"';
+
+  /** the quotation mark of the end */
+  protected static final char CLOSE_QUOTE = '"';
+
   protected final Map<String, String> classNameMap = new HashMap<String, String>();
 
   protected final Map<Integer, String> fallbackClassNameMap = new HashMap<Integer, String>();
@@ -124,8 +130,10 @@ public class StandardCodeGenDialect implements CodeGenDialect {
     if (columnName == null) {
       throw new CodeGenNullPointerException("columnName");
     }
-    String fullTableName = TableUtil.getQualifiedTableName(catalogName, schemaName, tableName);
-    String sql = "select " + columnName + " from " + fullTableName + " where 1 = 0";
+    String fullTableName =
+        TableUtil.getEnquoteQualifiedTableName(
+            this::applyQuote, catalogName, schemaName, tableName);
+    String sql = "select " + applyQuote(columnName) + " from " + fullTableName + " where 1 = 0";
     PreparedStatement preparedStatement = connection.prepareStatement(sql);
     try {
       ResultSet resultSet = preparedStatement.executeQuery();
@@ -219,5 +227,10 @@ public class StandardCodeGenDialect implements CodeGenDialect {
       throw new CodeGenNullPointerException("value");
     }
     return "'" + value + "'";
+  }
+
+  @Override
+  public String applyQuote(String name) {
+    return OPEN_QUOTE + name + CLOSE_QUOTE;
   }
 }
