@@ -367,8 +367,8 @@ public class CodeGenConfig {
     return templateDir;
   }
 
-  public void setTemplateDir(File templateDir) {
-    this.templateDir.set(templateDir);
+  public void setTemplateDir(String templateDir) {
+    this.templateDir.set(new File(templateDir));
   }
 
   public Property<String> getEncoding() {
