@@ -304,7 +304,7 @@ domaCodeGen {
         user = '...'
         password = '...'
         // specify the directory including your custom template files
-        templateDir = "$projectDir/template"
+        templateDir = file("$projectDir/template")
         entity {
           packageName = 'org.example.entity'
         }
