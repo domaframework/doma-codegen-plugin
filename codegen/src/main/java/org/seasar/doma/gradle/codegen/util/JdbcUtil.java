@@ -18,7 +18,7 @@ public final class JdbcUtil {
 
   private static final org.slf4j.Logger logger = LoggerFactory.getLogger(JdbcUtil.class);
 
-  protected static final Pattern jdbcUrlPattern = Pattern.compile("jdbc:([^:]+):");
+  protected static final Pattern jdbcUrlPattern = Pattern.compile("jdbc:([^:]+):(([^:]+)?:)?");
 
   public static Connection getConnection(DataSource dataSource) {
     try {
@@ -77,8 +77,8 @@ public final class JdbcUtil {
   public static String inferDialectName(String url) {
     return match(
         url,
-        name -> {
-          switch (name) {
+        names -> {
+          switch (names.getFirst()) {
             case "h2":
               return "h2";
             case "hsqldb":
@@ -105,8 +105,8 @@ public final class JdbcUtil {
   public static String inferDriverClassName(String url) {
     return match(
         url,
-        name -> {
-          switch (name) {
+        names -> {
+          switch (names.getFirst()) {
             case "h2":
               return "org.h2.Driver";
             case "hsqldb":
@@ -114,6 +114,9 @@ public final class JdbcUtil {
             case "sqlite":
               return "org.sqlite.JDBC";
             case "mysql":
+              if ("aws".equals(names.getSecond())) {
+                return "software.aws.rds.jdbc.mysql.Driver";
+              }
               return "com.mysql.cj.jdbc.Driver";
             case "mariadb":
               return "org.mariadb.jdbc.Driver";
@@ -131,14 +134,15 @@ public final class JdbcUtil {
         });
   }
 
-  protected static <R> R match(String url, Function<String, R> mapper) {
+  protected static <R> R match(String url, Function<Pair<String, String>, R> mapper) {
     if (url == null) {
       throw new CodeGenNullPointerException("url");
     }
     Matcher matcher = jdbcUrlPattern.matcher(url);
     if (matcher.lookingAt()) {
-      String name = matcher.group(1);
-      return mapper.apply(name);
+      String first = matcher.group(1);
+      String second = matcher.group(3);
+      return mapper.apply(new Pair<>(first, second));
     }
     return null;
   }
