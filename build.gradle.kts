@@ -1,6 +1,6 @@
 plugins {
     java
-    id("net.researchgate.release") version "2.8.1"
+    id("net.researchgate.release") version "3.0.2"
 }
 
 configure<net.researchgate.release.ReleaseExtension> {
