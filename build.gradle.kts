@@ -1,11 +1,14 @@
 plugins {
     java
-    id("net.researchgate.release") version "2.8.1"
+    id("net.researchgate.release") version "3.0.2"
 }
 
 configure<net.researchgate.release.ReleaseExtension> {
-    newVersionCommitMessage = "[Gradle Release Plugin] - [skip ci] new version commit: "
-    tagTemplate = "v\$version"
+    newVersionCommitMessage.set("[Gradle Release Plugin] - [skip ci] new version commit: ")
+    tagTemplate.set("v\$version")
+    git {
+        requireBranch.set("master")
+    }
 }
 
 allprojects {
