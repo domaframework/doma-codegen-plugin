@@ -8,7 +8,7 @@ plugins {
 gradlePlugin {
     plugins {
         create("codegenPlugin") {
-            id = "org.seasar.doma.codegen"
+            id = "org.domaframework.doma.codegen"
             displayName = "Doma Codegen Plugin"
             description = "Generates Java, Kotlin, and SQL files from Database"
             implementationClass = "org.seasar.doma.gradle.codegen.CodeGenPlugin"

@@ -11,7 +11,7 @@ It generates Java, Kotlin, and SQL files from Database.
 Check latest version
 --------------------
 
-- [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.seasar.doma.codegen).
+- [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.domaframework.doma.codegen).
 
 How to use
 ----------
@@ -32,7 +32,7 @@ buildscript {
 plugins {
     id 'java'
     // specify the Doma CodeGen Plugin with correct version
-    id 'org.seasar.doma.codegen' version 'x.x.x'
+    id 'org.domaframework.doma.codegen' version '2.x.x'
 }
 
 domaCodeGen {
@@ -71,7 +71,7 @@ buildscript {
 plugins {
     id("java")
     // specify the Doma CodeGen Plugin with correct version
-    id("org.seasar.doma.codegen") version "x.x.x"
+    id("org.domaframework.doma.codegen") version "2.x.x"
 }
 
 domaCodeGen {
