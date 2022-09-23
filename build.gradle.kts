@@ -4,8 +4,11 @@ plugins {
 }
 
 configure<net.researchgate.release.ReleaseExtension> {
-    newVersionCommitMessage = "[Gradle Release Plugin] - [skip ci] new version commit: "
-    tagTemplate = "v\$version"
+    newVersionCommitMessage.set("[Gradle Release Plugin] - [skip ci] new version commit: ")
+    tagTemplate.set("v\$version")
+    git {
+        requireBranch.set("master")
+    }
 }
 
 allprojects {
