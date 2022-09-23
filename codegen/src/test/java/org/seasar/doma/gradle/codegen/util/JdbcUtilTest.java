@@ -20,6 +20,14 @@ public class JdbcUtilTest {
   }
 
   @Test
+  public void testInferDialectName_mysql_aws() throws Exception {
+    String dialectName =
+        JdbcUtil.inferDialectName(
+            "jdbc:mysql:aws://db-identifier.cluster-XYZ.us-east-2.rds.amazonaws.com:3306");
+    assertEquals("mysql", dialectName);
+  }
+
+  @Test
   public void testInferDialectName_unknown() throws Exception {
     String dialectName = JdbcUtil.inferDialectName("jdbc:unknown://localhost/hoge");
     assertNull(dialectName);
@@ -41,6 +49,14 @@ public class JdbcUtilTest {
   public void testInferDriverClassName_mysql() throws Exception {
     String driverClassName = JdbcUtil.inferDriverClassName("jdbc:mysql://localhost:3306/hoge");
     assertEquals("com.mysql.cj.jdbc.Driver", driverClassName);
+  }
+
+  @Test
+  public void testInferDriverClassName_mysql_aws() throws Exception {
+    String driverClassName =
+        JdbcUtil.inferDriverClassName(
+            "jdbc:mysql:aws://db-identifier.cluster-XYZ.us-east-2.rds.amazonaws.com:3306");
+    assertEquals("software.aws.rds.jdbc.mysql.Driver", driverClassName);
   }
 
   @Test
