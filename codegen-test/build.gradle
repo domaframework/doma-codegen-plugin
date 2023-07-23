@@ -42,8 +42,8 @@ repositories {
 dependencies {
     implementation "org.seasar.doma:doma-core:$domaVersion"
     annotationProcessor "org.seasar.doma:doma-processor:$domaVersion"
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testRuntimeOnly "com.h2database:h2:$h2Version"
 }
 
