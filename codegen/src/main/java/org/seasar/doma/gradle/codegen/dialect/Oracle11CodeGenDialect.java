@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import org.seasar.doma.gradle.codegen.desc.ClassConstants;
@@ -27,6 +28,7 @@ public class Oracle11CodeGenDialect extends StandardCodeGenDialect {
     classNameMap.put("nvarchar2", String.class.getName());
     classNameMap.put("raw", ClassConstants.bytes.getQualifiedName());
     classNameMap.put("varchar2", String.class.getName());
+    classNameMap.put("date", LocalDateTime.class.getName());
   }
 
   @Override
