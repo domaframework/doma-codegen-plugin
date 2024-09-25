@@ -4,7 +4,7 @@ import org.seasar.doma.gradle.codegen.jdbc.SimpleDataSource
 
 buildscript {
     ext.domaVersion = '2.62.1'
-    ext.h2Version= '1.4.200'
+    ext.h2Version= '2.3.232'
     repositories {
         mavenCentral()
         mavenLocal()
