@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.freemarker:freemarker:2.3.32")
+    implementation("org.freemarker:freemarker:2.3.33")
     testImplementation("org.seasar.doma:doma-core:2.62.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.11.1")
