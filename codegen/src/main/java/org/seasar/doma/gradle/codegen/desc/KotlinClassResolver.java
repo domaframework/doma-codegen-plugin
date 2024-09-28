@@ -25,7 +25,7 @@ public class KotlinClassResolver implements LanguageClassResolver {
     map.put(Integer.class.getName(), new LanguageClass("Int", "-1"));
     map.put(Long.class.getName(), new LanguageClass("Long", "-1L"));
     map.put(Float.class.getName(), new LanguageClass("Float", "-1f"));
-    map.put(Double.class.getName(), new LanguageClass("Double", "-1"));
+    map.put(Double.class.getName(), new LanguageClass("Double", "-1.0"));
     return map;
   }
 }
