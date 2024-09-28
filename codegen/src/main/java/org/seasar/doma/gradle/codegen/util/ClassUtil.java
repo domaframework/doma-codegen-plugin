@@ -62,10 +62,8 @@ public final class ClassUtil {
       throw new CodeGenException(Message.DOMAGEN0014, propertyName, className, supertype.getName());
     }
     try {
-      return supertype.cast(clazz.newInstance());
-    } catch (InstantiationException e) {
-      throw new CodeGenException(Message.DOMAGEN0015, propertyName, className, e);
-    } catch (IllegalAccessException e) {
+      return supertype.cast(clazz.getDeclaredConstructor().newInstance());
+    } catch (ReflectiveOperationException e) {
       throw new CodeGenException(Message.DOMAGEN0015, propertyName, className, e);
     }
   }
