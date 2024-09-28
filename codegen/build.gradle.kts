@@ -6,31 +6,26 @@ plugins {
 }
 
 gradlePlugin {
+    website.set("https://github.com/domaframework/doma-codegen-plugin")
+    vcsUrl.set("https://github.com/domaframework/doma-codegen-plugin.git")
     plugins {
         create("codegenPlugin") {
             id = "org.domaframework.doma.codegen"
             displayName = "Doma Codegen Plugin"
             description = "Generates Java, Kotlin, and SQL files from Database"
             implementationClass = "org.seasar.doma.gradle.codegen.CodeGenPlugin"
+            tags.set(listOf("doma", "generator"))
         }
     }
-}
-
-pluginBundle {
-    website = "https://github.com/domaframework/doma-codegen-plugin"
-    vcsUrl = "https://github.com/domaframework/doma-codegen-plugin.git"
-    tags = listOf("doma", "generator")
 }
 
 sourceSets {
     main {
         java {
-            setSrcDirs(emptyList<String>())
+            setSrcDirs(emptyList<String>()) 
         }
-        withConvention(GroovySourceSet::class) {
-            groovy {
-                setSrcDirs(listOf("src/main/groovy", "src/main/java"))
-            }
+        groovy {
+            setSrcDirs(listOf("src/main/groovy", "src/main/java"))
         }
     }
 }
@@ -44,9 +39,9 @@ spotless {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    toolchain.languageVersion.set(JavaLanguageVersion.of( 17))
 }
+
 
 repositories {
     mavenCentral()
@@ -65,6 +60,10 @@ dependencies {
 tasks {
     test {
         useJUnitPlatform()
+    }
+    
+    javadoc {
+        enabled = false
     }
 
     groovydoc {
