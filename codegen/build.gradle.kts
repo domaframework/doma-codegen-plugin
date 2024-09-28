@@ -1,7 +1,7 @@
 plugins {
     id("groovy")
     id("java-gradle-plugin")
-    id("com.diffplug.spotless") version "5.17.1"
+    id("com.diffplug.spotless") version "6.25.0"
     id("com.gradle.plugin-publish") version "1.3.0"
 }
 
@@ -32,7 +32,7 @@ sourceSets {
 
 spotless {
     java {
-        googleJavaFormat("1.7")
+        googleJavaFormat("1.23.0")
     }
     groovy {
     }
