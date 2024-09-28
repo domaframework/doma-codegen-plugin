@@ -3,8 +3,8 @@ import org.seasar.doma.gradle.codegen.desc.LanguageType
 import org.seasar.doma.gradle.codegen.jdbc.SimpleDataSource
 
 buildscript {
-    ext.domaVersion = '2.62.1'
-    ext.h2Version= '1.4.200'
+    ext.domaVersion = '3.0.0'
+    ext.h2Version= '2.3.232'
     repositories {
         mavenCentral()
         mavenLocal()
@@ -19,15 +19,14 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.25'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.20'
     id 'org.seasar.doma.compile' version '1.1.0'
 }
 
 apply plugin: 'org.domaframework.doma.codegen'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 test {
