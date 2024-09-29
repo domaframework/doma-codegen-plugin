@@ -3,7 +3,7 @@ import org.seasar.doma.gradle.codegen.desc.LanguageType
 import org.seasar.doma.gradle.codegen.jdbc.SimpleDataSource
 
 buildscript {
-    ext.domaVersion = '3.0.0'
+    ext.domaVersion = '3.0.1'
     ext.h2Version= '2.3.232'
     repositories {
         mavenCentral()
