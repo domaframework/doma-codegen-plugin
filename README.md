@@ -19,3 +19,28 @@ Check latest version
 
 - [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.domaframework.doma.codegen)
 
+Major versions
+---------------------
+
+### Status and Repository
+
+| Version                 | Status          | Repository                                            | Branch |
+|-------------------------|-----------------|-------------------------------------------------------|--------|
+| [Doma CodeGen Plugin 2] | limited-support | https://github.com/domaframework/doma-codegen-plugin/ | 2.x    |
+| [Doma CodeGen Plugin 3] | stable          | https://github.com/domaframework/doma-codegen-plugin/ | master |
+
+### Compatibility matrix
+
+The supported versions of Doma:
+
+|                       | Doma 2 | Doma 3 |
+|-----------------------|--------|--------|
+| Doma CodeGen Plugin 2 | v      |        |
+| Doma CodeGen Plugin 3 |        | v      |
+
+The minimum supported versions of Java:
+
+|                       | Java 8 | Java 17 |
+|-----------------------|--------|---------|
+| Doma CodeGen Plugin 2 | v      |         |
+| Doma CodeGen Plugin 3 |        | v       |
