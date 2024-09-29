@@ -24,10 +24,10 @@ Major versions
 
 ### Status and Repository
 
-| Version                 | Status          | Repository                                            | Branch |
-|-------------------------|-----------------|-------------------------------------------------------|--------|
-| [Doma CodeGen Plugin 2] | limited-support | https://github.com/domaframework/doma-codegen-plugin/ | 2.x    |
-| [Doma CodeGen Plugin 3] | stable          | https://github.com/domaframework/doma-codegen-plugin/ | master |
+| Version               | Status          | Repository                                                                                 | Branch |
+|-----------------------|-----------------|--------------------------------------------------------------------------------------------|--------|
+| Doma CodeGen Plugin 2 | limited-support | [domaframework/doma-codegen-plugin](https://github.com/domaframework/doma-codegen-plugin/) | 2.x    |
+| Doma CodeGen Plugin 3 | stable          | [domaframework/doma-codegen-plugin](https://github.com/domaframework/doma-codegen-plugin/) | master |
 
 ### Compatibility matrix
 
