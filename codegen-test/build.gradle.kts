@@ -84,13 +84,13 @@ tasks {
     test {
         useJUnitPlatform()
     }
-    
+
     val deleteSrc = register("deleteSrc") {
         doLast {
             delete("src")
         }
     }
-    
+
     val createDb = register("createDb") {
         doLast {
             val ds = SimpleDataSource()
@@ -127,4 +127,3 @@ tasks {
     getByName("domaCodeGenJavaDbMeta").dependsOn(deleteSrc, createDb)
     getByName("domaCodeGenKotlinDbMeta").dependsOn(deleteSrc, createDb)
 }
-
