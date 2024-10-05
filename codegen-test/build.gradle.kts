@@ -9,9 +9,6 @@ buildscript {
         maven {
             url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
         }
-        flatDir {
-            dirs("../codegen")
-        }
     }
     dependencies {
         val h2Version: String = properties["h2Version"] as String
