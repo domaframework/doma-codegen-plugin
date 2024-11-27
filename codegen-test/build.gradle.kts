@@ -20,7 +20,7 @@ buildscript {
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.0.21"
+    id("org.jetbrains.kotlin.jvm") version "2.1.0"
     id("org.domaframework.doma.compile") version "3.0.1"
     id("org.domaframework.doma.codegen")
 }
