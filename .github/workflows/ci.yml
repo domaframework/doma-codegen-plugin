@@ -39,7 +39,7 @@ jobs:
 
       - name: Set version
         id: set-version
-        run: ./gradlew properties | grep "^version:" | awk '{print $2}' | { read v; echo "::set-output name=version::$v"; }
+        run: ./gradlew properties | grep "^version:" | awk '{print $2}' | { read v; echo "version=$v" >> $GITHUB_OUTPUT; }
 
       - name: Print version
         run: echo ${{ steps.set-version.outputs.version }}
