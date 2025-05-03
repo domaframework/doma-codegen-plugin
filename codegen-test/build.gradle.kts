@@ -40,9 +40,12 @@ dependencies {
 
     implementation("org.seasar.doma:doma-core:$domaVersion")
     annotationProcessor("org.seasar.doma:doma-processor:$domaVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.12.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.12.2")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.12.2")
+    
+    // Use JUnit BOM for version management
+    testImplementation(platform("org.junit:junit-bom:5.12.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testRuntimeOnly("com.h2database:h2:$h2Version")
 }
 

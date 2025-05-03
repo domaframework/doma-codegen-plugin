@@ -52,10 +52,13 @@ repositories {
 dependencies {
     implementation("org.freemarker:freemarker:2.3.34")
     testImplementation("org.seasar.doma:doma-core:3.7.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.12.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.12.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.12.2")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.12.2")
+    
+    // Use JUnit BOM for version management
+    testImplementation(platform("org.junit:junit-bom:5.12.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks {
