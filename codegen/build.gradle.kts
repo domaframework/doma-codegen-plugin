@@ -54,7 +54,7 @@ dependencies {
     testImplementation("org.seasar.doma:doma-core:3.9.0")
     
     // Use JUnit BOM for version management
-    testImplementation(platform("org.junit:junit-bom:5.13.1"))
+    testImplementation(platform("org.junit:junit-bom:5.13.2"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
