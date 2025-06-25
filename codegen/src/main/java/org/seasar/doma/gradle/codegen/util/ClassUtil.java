@@ -94,7 +94,7 @@ public final class ClassUtil {
   public static Class<?> forName(String className, String propertyName, ClassLoader classLoader) {
     AssertionUtil.assertNotNull(className, propertyName, classLoader);
     try {
-      return classLoader.loadClass(className);
+      return Class.forName(className, true, classLoader);
     } catch (ClassNotFoundException e) {
       throw new CodeGenException(Message.DOMAGEN0033, propertyName, className, e);
     }
