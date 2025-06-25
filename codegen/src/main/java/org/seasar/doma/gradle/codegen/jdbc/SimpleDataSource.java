@@ -9,7 +9,6 @@ import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
-import org.seasar.doma.gradle.codegen.exception.CodeGenException;
 import org.seasar.doma.gradle.codegen.message.Message;
 
 public class SimpleDataSource implements DataSource {
@@ -32,11 +31,6 @@ public class SimpleDataSource implements DataSource {
 
   public void setDriver(Driver driver) {
     this.driver = driver;
-    try {
-      DriverManager.registerDriver(driver);
-    } catch (SQLException e) {
-      throw new CodeGenException(Message.DOMAGEN9001, e, e);
-    }
   }
 
   public String getUrl() {
@@ -108,6 +102,9 @@ public class SimpleDataSource implements DataSource {
       throw new SQLException(Message.DOMAGEN5002.getMessage());
     }
     try {
+      if (driver != null) {
+        return driver.connect(url, info);
+      }
       return DriverManager.getConnection(url, info);
     } catch (SQLException e) {
       if (UNABLE_TO_ESTABLISH_CONNECTION.equals(e.getSQLState())) {
