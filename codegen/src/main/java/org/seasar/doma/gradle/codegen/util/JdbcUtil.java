@@ -18,7 +18,8 @@ public final class JdbcUtil {
 
   private static final org.slf4j.Logger logger = LoggerFactory.getLogger(JdbcUtil.class);
 
-  protected static final Pattern jdbcUrlPattern = Pattern.compile("jdbc:([^:]+):(([^:]+)?:)?");
+  protected static final Pattern jdbcUrlPattern =
+      Pattern.compile("jdbc:(?:tc:)?([^:]+):(([^:]+)?:)?");
 
   public static Connection getConnection(DataSource dataSource) {
     try {
