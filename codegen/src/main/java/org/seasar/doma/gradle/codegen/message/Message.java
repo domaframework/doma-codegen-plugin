@@ -26,6 +26,11 @@ public enum Message implements MessageResource {
       "Cannot infer the driver class name from the property \"url\", so this plugin cannot create a DataSource instance. Correct the url property or specify the property \"dataSource\" explicitly."),
   DOMAGEN0025(
       "Cannot infer the dialect name from the property \"url\", so this plugin cannot create a CodeGenDialect instance. Correct the url property or specify the property \"codeGenDialect\" explicitly."),
+  DOMAGEN0033("The class \"{1}\" to which the parameter \"{0}\" refers is not found. {2}"),
+  DOMAGEN0034(
+      "The class \"{1}\" to which the parameter \"{0}\" refers must be a subtype of the class \"{2}\"."),
+  DOMAGEN0035(
+      "The class \"{1}\" to which the parameter \"{0}\" refers cannot be instantiated. The class \"{1}\" must have a public default constructor. {2}"),
 
   DOMAGEN5001(
       "The JDBC driver may not be loaded. Check that the JDBC driver is in the classpath. If the JDBC driver is not loaded automatically, load it explicitly using Class.forName. ex) Class.forName(\"oracle.jdbc.driver.OracleDriver\")"),
