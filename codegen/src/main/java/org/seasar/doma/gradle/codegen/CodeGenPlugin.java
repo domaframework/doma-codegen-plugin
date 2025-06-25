@@ -20,6 +20,7 @@ import org.seasar.doma.gradle.codegen.util.StringUtil;
 public class CodeGenPlugin implements Plugin<Project> {
 
   public static final String EXTENSION_NAME = "domaCodeGen";
+  public static final String CONFIGURATION_NAME = "domaCodeGen";
   public static final String TASK_GROUP_NAME = "Doma Code Generation";
   public static final String DB_META_TASK_NAME = "DbMeta";
   public static final String DTO_TASK_NAME = "Dto";
@@ -33,6 +34,18 @@ public class CodeGenPlugin implements Plugin<Project> {
 
   @Override
   public void apply(Project project) {
+    project
+        .getConfigurations()
+        .create(
+            CONFIGURATION_NAME,
+            config -> {
+              config.setDescription(
+                  "The libraries used by the Doma CodeGen plugin for JDBC drivers and other dependencies");
+              config.setVisible(false);
+              config.setCanBeConsumed(false);
+              config.setCanBeResolved(true);
+            });
+
     NamedDomainObjectContainer<CodeGenConfig> container =
         project.container(
             CodeGenConfig.class,

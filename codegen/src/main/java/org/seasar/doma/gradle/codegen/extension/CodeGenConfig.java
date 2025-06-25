@@ -1,14 +1,20 @@
 package org.seasar.doma.gradle.codegen.extension;
 
+import static org.seasar.doma.gradle.codegen.CodeGenPlugin.CONFIGURATION_NAME;
+
 import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.sql.Driver;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import org.gradle.api.Action;
 import org.gradle.api.Project;
+import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileTree;
@@ -30,6 +36,8 @@ import org.seasar.doma.gradle.codegen.util.JdbcUtil;
 public class CodeGenConfig {
 
   private final String name;
+
+  private final Configuration configuration;
 
   private final Property<GlobalFactory> globalFactory;
 
@@ -84,6 +92,8 @@ public class CodeGenConfig {
   @Inject
   public CodeGenConfig(String name, Project project) {
     this.name = name;
+
+    this.configuration = project.getConfigurations().getByName(CONFIGURATION_NAME);
 
     ObjectFactory objects = project.getObjects();
 
@@ -146,11 +156,30 @@ public class CodeGenConfig {
           if (driverClassName == null) {
             throw new CodeGenException(Message.DOMAGEN0024);
           }
-          Driver driver = ClassUtil.newInstance(Driver.class, driverClassName, "driverClassName");
+          ClassLoader classLoader = createClassLoader();
+          Driver driver =
+              ClassUtil.newInstance(Driver.class, driverClassName, "driverClassName", classLoader);
           return globalFactory
               .get()
               .createDataSource(driver, user.getOrNull(), password.getOrNull(), url.get());
         });
+  }
+
+  protected ClassLoader createClassLoader() {
+    if (configuration == null || configuration.isEmpty()) {
+      return getClass().getClassLoader();
+    }
+    Set<File> fileSet = configuration.getFiles();
+    URL[] urls = new URL[fileSet.size()];
+    int i = 0;
+    for (File file : fileSet) {
+      try {
+        urls[i++] = file.toURI().toURL();
+      } catch (Exception e) {
+        throw new RuntimeException("Failed to convert file to URL: " + file, e);
+      }
+    }
+    return new URLClassLoader(urls, getClass().getClassLoader());
   }
 
   private Provider<CodeGenDialect> codeGenDialectProvider() {

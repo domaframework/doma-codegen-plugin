@@ -1,6 +1,4 @@
-import org.h2.Driver
 import org.seasar.doma.gradle.codegen.desc.LanguageType
-import org.seasar.doma.gradle.codegen.jdbc.SimpleDataSource
 
 buildscript {
     repositories {
@@ -11,10 +9,7 @@ buildscript {
         }
     }
     dependencies {
-        val h2Version: String = properties["h2Version"] as String
         classpath("org.domaframework.doma:codegen")
-        classpath("com.h2database:h2:$h2Version")
-        classpath("mysql:mysql-connector-java:8.0.33")
     }
 }
 
@@ -23,6 +18,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "2.2.0"
     id("org.domaframework.doma.compile") version "4.0.0"
     id("org.domaframework.doma.codegen")
+    id("com.nocwriter.runsql") version "1.0.3"
 }
 
 java {
@@ -40,13 +36,19 @@ dependencies {
 
     implementation("org.seasar.doma:doma-core:$domaVersion")
     annotationProcessor("org.seasar.doma:doma-processor:$domaVersion")
-    
+
     // Use JUnit BOM for version management
     testImplementation(platform("org.junit:junit-bom:5.13.2"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testRuntimeOnly("com.h2database:h2:$h2Version")
+
+    // Add H2 to the domaCodeGen configuration
+    domaCodeGen("com.h2database:h2:$h2Version")
+
+    // Used by runsql-gradle-plugin
+    runtimeOnly("com.h2database:h2:$h2Version")
 }
 
 val _url = "jdbc:h2:file:$projectDir/data/db"
@@ -92,15 +94,13 @@ tasks {
         }
     }
 
-    val createDb = register("createDb") {
-        doLast {
-            val ds = SimpleDataSource()
-            ds.setDriver(Driver())
-            ds.setUrl(_url)
-            ds.setUser(_user)
-            ds.setPassword(_password)
-
-            val sql = """
+    val createDb = register<RunSQL>("createDb") {
+        config {
+            username = _user
+            password = _password
+            url = _url
+            driverClassName = "org.h2.Driver"
+            script = """
             drop all objects;
 
             create table department(
@@ -115,13 +115,8 @@ tasks {
                 employee_id integer not null primary key, 
                 employee_no integer not null,
                 employee_name varchar(20)
-            );
-            """
-            ds.connection.use {
-                it.createStatement().use {
-                    it.execute(sql)
-                }
-            }
+            );                
+            """.trimIndent()
         }
     }
 

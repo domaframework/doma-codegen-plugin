@@ -57,7 +57,13 @@ public final class ClassUtil {
 
   public static <T> T newInstance(Class<T> supertype, String className, String propertyName) {
     AssertionUtil.assertNotNull(supertype, className, propertyName);
-    Class<?> clazz = forName(className, propertyName);
+    return newInstance(supertype, className, propertyName, null);
+  }
+
+  public static <T> T newInstance(
+      Class<T> supertype, String className, String propertyName, ClassLoader classLoader) {
+    AssertionUtil.assertNotNull(supertype, className, propertyName);
+    Class<?> clazz = forName(className, propertyName, classLoader);
     if (!supertype.isAssignableFrom(clazz)) {
       throw new CodeGenException(Message.DOMAGEN0014, propertyName, className, supertype.getName());
     }
@@ -70,8 +76,17 @@ public final class ClassUtil {
 
   public static Class<?> forName(String className, String propertyName) {
     AssertionUtil.assertNotNull(className, propertyName);
+    return forName(className, propertyName, null);
+  }
+
+  public static Class<?> forName(String className, String propertyName, ClassLoader classLoader) {
+    AssertionUtil.assertNotNull(className, propertyName);
     try {
-      return Class.forName(className);
+      if (classLoader != null) {
+        return classLoader.loadClass(className);
+      } else {
+        return Class.forName(className);
+      }
     } catch (ClassNotFoundException e) {
       throw new CodeGenException(Message.DOMAGEN0013, propertyName, className, e);
     }
