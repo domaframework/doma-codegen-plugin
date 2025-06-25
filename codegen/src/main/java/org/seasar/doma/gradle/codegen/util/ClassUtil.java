@@ -68,12 +68,35 @@ public final class ClassUtil {
     }
   }
 
+  public static <T> T newInstance(
+      Class<T> supertype, String className, String propertyName, ClassLoader classLoader) {
+    AssertionUtil.assertNotNull(supertype, className, propertyName, classLoader);
+    Class<?> clazz = forName(className, propertyName, classLoader);
+    if (!supertype.isAssignableFrom(clazz)) {
+      throw new CodeGenException(Message.DOMAGEN0034, propertyName, className, supertype.getName());
+    }
+    try {
+      return supertype.cast(clazz.getDeclaredConstructor().newInstance());
+    } catch (ReflectiveOperationException e) {
+      throw new CodeGenException(Message.DOMAGEN0035, propertyName, className, e);
+    }
+  }
+
   public static Class<?> forName(String className, String propertyName) {
     AssertionUtil.assertNotNull(className, propertyName);
     try {
       return Class.forName(className);
     } catch (ClassNotFoundException e) {
       throw new CodeGenException(Message.DOMAGEN0013, propertyName, className, e);
+    }
+  }
+
+  public static Class<?> forName(String className, String propertyName, ClassLoader classLoader) {
+    AssertionUtil.assertNotNull(className, propertyName, classLoader);
+    try {
+      return classLoader.loadClass(className);
+    } catch (ClassNotFoundException e) {
+      throw new CodeGenException(Message.DOMAGEN0033, propertyName, className, e);
     }
   }
 }
