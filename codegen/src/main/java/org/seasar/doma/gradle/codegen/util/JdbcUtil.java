@@ -19,7 +19,7 @@ public final class JdbcUtil {
   private static final org.slf4j.Logger logger = LoggerFactory.getLogger(JdbcUtil.class);
 
   protected static final Pattern jdbcUrlPattern =
-      Pattern.compile("jdbc:(?:tc:)?([^:]+):(([^:]+)?:)?");
+      Pattern.compile("jdbc:(tc:)?([^:]+):(([^:]+)?:)?");
 
   public static Connection getConnection(DataSource dataSource) {
     try {
@@ -79,7 +79,7 @@ public final class JdbcUtil {
     return match(
         url,
         names -> {
-          switch (names.getFirst()) {
+          switch (names.second()) {
             case "h2":
               return "h2";
             case "hsqldb":
@@ -107,7 +107,10 @@ public final class JdbcUtil {
     return match(
         url,
         names -> {
-          switch (names.getFirst()) {
+          if ("tc:".equals(names.first())) {
+            return "org.testcontainers.jdbc.ContainerDatabaseDriver";
+          }
+          switch (names.second()) {
             case "h2":
               return "org.h2.Driver";
             case "hsqldb":
@@ -115,7 +118,7 @@ public final class JdbcUtil {
             case "sqlite":
               return "org.sqlite.JDBC";
             case "mysql":
-              if ("aws".equals(names.getSecond())) {
+              if ("aws".equals(names.third())) {
                 return "software.aws.rds.jdbc.mysql.Driver";
               }
               return "com.mysql.cj.jdbc.Driver";
@@ -135,16 +138,19 @@ public final class JdbcUtil {
         });
   }
 
-  protected static <R> R match(String url, Function<Pair<String, String>, R> mapper) {
+  protected static <R> R match(String url, Function<Triple, R> mapper) {
     if (url == null) {
       throw new CodeGenNullPointerException("url");
     }
     Matcher matcher = jdbcUrlPattern.matcher(url);
     if (matcher.lookingAt()) {
       String first = matcher.group(1);
-      String second = matcher.group(3);
-      return mapper.apply(new Pair<>(first, second));
+      String second = matcher.group(2);
+      String third = matcher.group(4);
+      return mapper.apply(new Triple(first, second, third));
     }
     return null;
   }
+
+  protected record Triple(String first, String second, String third) {}
 }
