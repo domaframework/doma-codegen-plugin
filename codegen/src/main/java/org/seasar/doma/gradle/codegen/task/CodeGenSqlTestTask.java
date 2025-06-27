@@ -107,11 +107,14 @@ public class CodeGenSqlTestTask extends DefaultTask {
   }
 
   private SqlTestSuiteDescFactory createSqlTestSuiteDescFactory() {
+    String urlValue = sqlTestConfig.getUrl().getOrElse(url.get());
+    String userValue = sqlTestConfig.getUser().getOrElse(user.get());
+    String passwordValue = sqlTestConfig.getPassword().getOrElse(password.get());
     SqlTestDescFactory sqlTestDescFactory =
         globalFactory
             .get()
             .createSqlTestCaseDescFactory(
-                dialect.get().getDialectClassName(), url.get(), user.get(), password.get());
+                dialect.get().getDialectClassName(), urlValue, userValue, passwordValue);
     return globalFactory.get().createSqlTestSuiteDescFactory(sqlTestDescFactory);
   }
 
