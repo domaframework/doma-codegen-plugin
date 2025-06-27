@@ -116,36 +116,36 @@ public class JdbcUtilTest {
   @Test
   public void testInferDriverClassName_testcontainers_postgresql() throws Exception {
     String driverClassName = JdbcUtil.inferDriverClassName("jdbc:tc:postgresql:13:///test");
-    assertEquals("org.postgresql.Driver", driverClassName);
+    assertEquals("org.testcontainers.jdbc.ContainerDatabaseDriver", driverClassName);
   }
 
   @Test
   public void testInferDriverClassName_testcontainers_mysql() throws Exception {
     String driverClassName = JdbcUtil.inferDriverClassName("jdbc:tc:mysql:8:///test");
-    assertEquals("com.mysql.cj.jdbc.Driver", driverClassName);
+    assertEquals("org.testcontainers.jdbc.ContainerDatabaseDriver", driverClassName);
   }
 
   @Test
   public void testInferDriverClassName_testcontainers_mariadb() throws Exception {
     String driverClassName = JdbcUtil.inferDriverClassName("jdbc:tc:mariadb:10.5:///test");
-    assertEquals("org.mariadb.jdbc.Driver", driverClassName);
+    assertEquals("org.testcontainers.jdbc.ContainerDatabaseDriver", driverClassName);
   }
 
   @Test
   public void testInferDriverClassName_testcontainers_oracle() throws Exception {
     String driverClassName = JdbcUtil.inferDriverClassName("jdbc:tc:oracle:21c:///test");
-    assertEquals("oracle.jdbc.driver.OracleDriver", driverClassName);
+    assertEquals("org.testcontainers.jdbc.ContainerDatabaseDriver", driverClassName);
   }
 
   @Test
   public void testInferDriverClassName_testcontainers_sqlserver() throws Exception {
     String driverClassName = JdbcUtil.inferDriverClassName("jdbc:tc:sqlserver:2019:///test");
-    assertEquals("com.microsoft.sqlserver.jdbc.SQLServerDriver", driverClassName);
+    assertEquals("org.testcontainers.jdbc.ContainerDatabaseDriver", driverClassName);
   }
 
   @Test
   public void testInferDriverClassName_testcontainers_db2() throws Exception {
     String driverClassName = JdbcUtil.inferDriverClassName("jdbc:tc:db2:11.5:///test");
-    assertEquals("com.ibm.db2.jcc.DB2Driver", driverClassName);
+    assertEquals("org.testcontainers.jdbc.ContainerDatabaseDriver", driverClassName);
   }
 }
