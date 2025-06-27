@@ -29,6 +29,7 @@ import org.seasar.doma.gradle.codegen.dialect.CodeGenDialect;
 import org.seasar.doma.gradle.codegen.dialect.CodeGenDialectRegistry;
 import org.seasar.doma.gradle.codegen.exception.CodeGenException;
 import org.seasar.doma.gradle.codegen.generator.Generator;
+import org.seasar.doma.gradle.codegen.jdbc.DriverWrapper;
 import org.seasar.doma.gradle.codegen.message.Message;
 import org.seasar.doma.gradle.codegen.util.ClassUtil;
 import org.seasar.doma.gradle.codegen.util.JdbcUtil;
@@ -159,9 +160,10 @@ public class CodeGenConfig {
           ClassLoader classLoader = createClassLoader();
           Driver driver =
               ClassUtil.newInstance(Driver.class, driverClassName, "driverClassName", classLoader);
+          DriverWrapper driverWrapper = new DriverWrapper(driver);
           return globalFactory
               .get()
-              .createDataSource(driver, user.getOrNull(), password.getOrNull(), url.get());
+              .createDataSource(driverWrapper, user.getOrNull(), password.getOrNull(), url.get());
         });
   }
 
