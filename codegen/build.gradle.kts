@@ -51,7 +51,7 @@ repositories {
 
 dependencies {
     implementation("org.freemarker:freemarker:2.3.34")
-    testImplementation("org.seasar.doma:doma-core:3.9.0")
+    testImplementation("org.seasar.doma:doma-core:3.9.1")
     
     // Use JUnit BOM for version management
     testImplementation(platform("org.junit:junit-bom:5.13.2"))
