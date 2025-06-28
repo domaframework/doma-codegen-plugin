@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.sql.DataSource;
+
 import org.gradle.api.Action;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
@@ -152,19 +153,19 @@ public class CodeGenConfig {
 
   private Provider<DataSource> dataSourceProvider() {
     return url.map(
-        it -> {
-          String driverClassName = JdbcUtil.inferDriverClassName(it);
-          if (driverClassName == null) {
-            throw new CodeGenException(Message.DOMAGEN0024);
-          }
-          ClassLoader classLoader = createClassLoader();
-          Driver driver =
-              ClassUtil.newInstance(Driver.class, driverClassName, "driverClassName", classLoader);
-          DriverWrapper driverWrapper = new DriverWrapper(driver);
-          return globalFactory
-              .get()
-              .createDataSource(driverWrapper, user.getOrNull(), password.getOrNull(), url.get());
-        });
+            it -> {
+              String driverClassName = JdbcUtil.inferDriverClassName(it);
+              if (driverClassName == null) {
+                throw new CodeGenException(Message.DOMAGEN0024);
+              }
+              ClassLoader classLoader = createClassLoader();
+              Driver driver =
+                      ClassUtil.newInstance(Driver.class, driverClassName, "driverClassName", classLoader);
+              DriverWrapper driverWrapper = new DriverWrapper(driver);
+              return globalFactory
+                      .get()
+                      .createDataSource(driverWrapper, user.getOrNull(), password.getOrNull(), url.get());
+            });
   }
 
   protected ClassLoader createClassLoader() {
@@ -186,17 +187,17 @@ public class CodeGenConfig {
 
   private Provider<CodeGenDialect> codeGenDialectProvider() {
     return url.map(
-        it -> {
-          String dialectName = JdbcUtil.inferDialectName(it);
-          if (dialectName == null) {
-            throw new CodeGenException(Message.DOMAGEN0025);
-          }
-          CodeGenDialect codeGenDialect = CodeGenDialectRegistry.lookup(dialectName);
-          if (codeGenDialect == null) {
-            throw new CodeGenException(Message.DOMAGEN0023, dialectName);
-          }
-          return codeGenDialect;
-        });
+            it -> {
+              String dialectName = JdbcUtil.inferDialectName(it);
+              if (dialectName == null) {
+                throw new CodeGenException(Message.DOMAGEN0025);
+              }
+              CodeGenDialect codeGenDialect = CodeGenDialectRegistry.lookup(dialectName);
+              if (codeGenDialect == null) {
+                throw new CodeGenException(Message.DOMAGEN0023, dialectName);
+              }
+              return codeGenDialect;
+            });
   }
 
   private Provider<LanguageClassResolver> languageClassResolverProvider() {
@@ -205,29 +206,30 @@ public class CodeGenConfig {
 
   private Provider<Directory> sourceDirProvider(Project project) {
     return languageType.map(
-        it -> project.getLayout().getProjectDirectory().dir("src/main/" + it.name().toLowerCase()));
+            it -> project.getLayout().getProjectDirectory().dir("src/main/" + it.name().toLowerCase()));
   }
 
   private Provider<Directory> testSourceDirProvider(Project project) {
     return languageType.map(
-        it -> project.getLayout().getProjectDirectory().dir("src/test/" + it.name().toLowerCase()));
+            it -> project.getLayout().getProjectDirectory().dir("src/test/" + it.name().toLowerCase()));
   }
 
   private Provider<Generator> generatorProvider() {
     return globalFactory.map(
-        it ->
-            it.createGenerator(
-                languageType.get(), templateEncoding.get(), templateDir.getAsFile().getOrNull()));
+            it ->
+                    it.createGenerator(
+                            languageType.get(), templateEncoding.get(), templateDir.getAsFile().getOrNull()));
   }
 
   private Provider<FileTree> sqlFilesProvider() {
     return resourceDir.map(
-        it ->
-            it.getAsFileTree()
-                .matching(
-                    filterConfig -> {
-                      filterConfig.include("META-INF/**/*.sql");
-                    }));
+            it -> {
+              String packageName = daoConfig.getPackageName().get();
+              String path = packageName.replace('.', '/');
+              return it.getAsFileTree()
+                      .matching(
+                              filterConfig -> filterConfig.include("META-INF/" + path + "/*/*.sql"));
+            });
   }
 
   private void validateProperties(Project project) {
@@ -236,13 +238,13 @@ public class CodeGenConfig {
     }
     if (!dataSource.isPresent()) {
       throw new CodeGenException(
-          Message.DOMAGEN0007, "dataSource", "Specify the \"url\" or the \"dataSource\" property.");
+              Message.DOMAGEN0007, "dataSource", "Specify the \"url\" or the \"dataSource\" property.");
     }
     if (!codeGenDialect.isPresent()) {
       throw new CodeGenException(
-          Message.DOMAGEN0007,
-          "codeGenDialect",
-          "Specify the \"url\" or the \"codeGenDialect\" property.");
+              Message.DOMAGEN0007,
+              "codeGenDialect",
+              "Specify the \"url\" or the \"codeGenDialect\" property.");
     }
     if (!tableNamePattern.isPresent()) {
       throw new CodeGenException(Message.DOMAGEN0007, "tableNamePattern", "");
