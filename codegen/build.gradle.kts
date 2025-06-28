@@ -1,8 +1,8 @@
 plugins {
-    id("groovy")
-    id("java-gradle-plugin")
-    id("com.diffplug.spotless") version "7.0.4"
-    id("com.gradle.plugin-publish") version "1.3.1"
+    groovy
+    `java-gradle-plugin`
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.plugin.publish)
 }
 
 gradlePlugin {
@@ -32,7 +32,7 @@ sourceSets {
 
 spotless {
     java {
-        googleJavaFormat("1.23.0")
+        googleJavaFormat(libs.versions.googleJavaFormat.get())
     }
     groovy {
     }
@@ -50,15 +50,15 @@ repositories {
 }
 
 dependencies {
-    implementation("org.freemarker:freemarker:2.3.34")
-    testImplementation("org.seasar.doma:doma-core:3.9.1")
+    implementation(libs.freemarker)
+    testImplementation(libs.doma.core)
     
     // Use JUnit BOM for version management
-    testImplementation(platform("org.junit:junit-bom:5.13.2"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.junit.jupiter:junit-jupiter-params")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.params)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 tasks {

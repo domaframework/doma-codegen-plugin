@@ -1,12 +1,11 @@
 import org.seasar.doma.gradle.codegen.desc.LanguageType
 
 plugins {
-    id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.2.0"
-    id("org.domaframework.doma.compile") version "4.0.0"
+    java
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.doma.compile)
+    alias(libs.plugins.release)
     id("org.domaframework.doma.codegen")
-    id("com.nocwriter.runsql") version "1.0.3"
-    id("net.researchgate.release") version "3.1.0"
 }
 
 configure<net.researchgate.release.ReleaseExtension> {
@@ -27,24 +26,22 @@ repositories {
 }
 
 dependencies {
-    val domaVersion: String by project
-
-    implementation("org.seasar.doma:doma-core:$domaVersion")
-    annotationProcessor("org.seasar.doma:doma-processor:$domaVersion")
+    implementation(libs.doma.core)
+    annotationProcessor(libs.doma.processor)
 
     // Use JUnit BOM for version management
-    testImplementation(platform("org.junit:junit-bom:5.13.2"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
-    testRuntimeOnly(platform("org.testcontainers:testcontainers-bom:1.21.2"))
-    testRuntimeOnly("org.testcontainers:postgresql")
-    testRuntimeOnly("org.postgresql:postgresql:42.7.7")
+    testRuntimeOnly(platform(libs.testcontainers.bom))
+    testRuntimeOnly(libs.testcontainers.postgresql)
+    testRuntimeOnly(libs.postgresql)
 
-    domaCodeGen(platform("org.testcontainers:testcontainers-bom:1.21.2"))
-    domaCodeGen("org.testcontainers:postgresql")
-    domaCodeGen("org.postgresql:postgresql:42.7.7")
+    domaCodeGen(platform(libs.testcontainers.bom))
+    domaCodeGen(libs.testcontainers.postgresql)
+    domaCodeGen(libs.postgresql)
 }
 
 val initScript = file("init_postgresql.sql")
