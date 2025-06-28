@@ -1,3 +1,5 @@
 rootProject.name = "doma-codegen-plugin"
 
-include("codegen")
+pluginManagement {
+    includeBuild("codegen")
+}
