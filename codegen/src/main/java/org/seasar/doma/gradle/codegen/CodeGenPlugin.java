@@ -136,7 +136,7 @@ public class CodeGenPlugin implements Plugin<Project> {
         task -> {
           task.setDescription("Generates SQL test source files.");
           task.setGroup(TASK_GROUP_NAME);
-          task.shouldRunAfter(sqlTask);
+          task.dependsOn(sqlTask);
           task.getOutputs().upToDateWhen(__ -> false);
           connectProperties(task, codeGenConfig);
         });
