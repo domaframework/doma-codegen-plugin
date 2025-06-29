@@ -11,6 +11,7 @@
 /.claude/
 /data/
 /.apt_generated/
+.kotlin/
 
 /src/main/java/codegen
 /src/main/kotlin/codegen
