@@ -23,6 +23,7 @@ Doma CodeGen Plugin is a Gradle plugin that generates Java, Kotlin, and SQL file
 ./gradlew :codegen:test
 ./gradlew :codegen-h2-test:test
 ./gradlew :codegen-tc-test:test
+./gradlew :codegen-template-test:test
 ```
 
 ## Code Quality
@@ -42,7 +43,7 @@ This is a Gradle composite build with the following structure:
 
 - **Root project** (`doma-codegen-plugin`): Contains build configuration and release management
   - Uses `pluginManagement` with `includeBuild("codegen")` to include the plugin project
-  - Includes test modules: `codegen-h2-test` and `codegen-tc-test`
+  - Includes test modules: `codegen-h2-test`, `codegen-tc-test`, and `codegen-template-test`
 
 - **codegen**: Main plugin implementation (included build)
   - Plugin entry point: `CodeGenPlugin.java`
@@ -62,6 +63,12 @@ This is a Gradle composite build with the following structure:
   - Supports both Java and Kotlin code generation
   - Two configurations: `java` and `kotlin`
 
+- **codegen-template-test**: Custom template demonstration module
+  - Tests code generation with custom FreeMarker templates
+  - Uses H2 in-memory database with custom template directory
+  - Single configuration: `customTemplate`
+  - Demonstrates how to override default templates with custom ones
+
 ### Key Components
 
 1. **Code Generators**: Transform database metadata into Java/Kotlin code using FreeMarker templates
@@ -75,6 +82,7 @@ This is a Gradle composite build with the following structure:
 
 4. **Template System**: FreeMarker templates in `/codegen/src/main/resources/`
    - Customizable via `templateDir` configuration
+   - See `codegen-template-test` module for custom template examples
 
 ### Development Notes
 
@@ -94,6 +102,10 @@ domaCodeGen {
         url = "jdbc:h2:mem:example"
         user = "sa"
         password = ""
+        
+        // Optional: Use custom templates
+        templateDir = file("src/main/resources/custom-templates")
+        
         entity {
             packageName = "com.example.entity"
         }
@@ -103,6 +115,14 @@ domaCodeGen {
     }
 }
 ```
+
+### Custom Templates
+
+The plugin supports custom FreeMarker templates to override default code generation:
+- Place custom templates in a directory (e.g., `src/main/resources/custom-templates/`)
+- Configure `templateDir` property in `domaCodeGen` configuration
+- Template files: `entity.ftl`, `dao.ftl`, `selectById.sql.ftl`, `lib.ftl`
+- See `codegen-template-test` module for a complete example
 
 ### Important Notes
 

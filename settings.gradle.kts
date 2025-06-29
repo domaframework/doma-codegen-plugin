@@ -6,3 +6,4 @@ pluginManagement {
 
 include("codegen-h2-test")
 include("codegen-tc-test")
+include("codegen-template-test")
