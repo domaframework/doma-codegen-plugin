@@ -1,9 +1,14 @@
 rootProject.name = "doma-codegen-plugin"
 
-pluginManagement {
-    includeBuild("codegen")
-}
+val releaseVersion = settings.startParameter.projectProperties["release.releaseVersion"]
 
-include("codegen-h2-test")
-include("codegen-tc-test")
-include("codegen-template-test")
+if (releaseVersion != null) {
+    include("codegen")
+} else {
+    pluginManagement {
+        includeBuild("codegen")
+    }
+    include("codegen-h2-test")
+    include("codegen-tc-test")
+    include("codegen-template-test")
+}
