@@ -6,7 +6,7 @@ h2 = "2.3.232"
 postgresql = "42.7.7"
 
 # Testing
-junit = "5.13.2"
+junit = "5.13.3"
 testcontainers = "1.21.3"
 
 # Plugins
