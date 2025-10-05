@@ -11,7 +11,7 @@ testcontainers = "1.21.3"
 
 # Plugins
 kotlin = "2.2.20"
-domaCompile = "4.0.2"
+domaCompile = "4.0.3"
 release = "3.1.0"
 spotless = "7.2.1"
 pluginPublish = "2.0.0"
