@@ -7,7 +7,7 @@ postgresql = "42.7.8"
 
 # Testing
 junit = "6.0.0"
-testcontainers = "1.21.3"
+testcontainers = "2.0.1"
 
 # Plugins
 kotlin = "2.2.21"
