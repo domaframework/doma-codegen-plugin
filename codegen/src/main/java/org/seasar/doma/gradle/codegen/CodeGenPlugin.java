@@ -188,6 +188,7 @@ public class CodeGenPlugin implements Plugin<Project> {
     task.getVersionColumnNamePattern().set(extension.getVersionColumnNamePattern());
     task.getLanguageClassResolver().set(extension.getLanguageClassResolver());
     task.setEntityConfig(extension.getEntityConfig());
+    task.setCodeGenClassLoaderProvider(extension.getClassLoaderProvider());
   }
 
   private void connectProperties(CodeGenEntityTask task, CodeGenConfig extension) {
