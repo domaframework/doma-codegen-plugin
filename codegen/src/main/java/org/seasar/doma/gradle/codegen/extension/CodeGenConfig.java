@@ -38,6 +38,8 @@ public class CodeGenConfig {
 
   private final String name;
 
+  private final Project project;
+
   private final Configuration configuration;
 
   private final Property<GlobalFactory> globalFactory;
@@ -93,6 +95,7 @@ public class CodeGenConfig {
   @Inject
   public CodeGenConfig(String name, Project project) {
     this.name = name;
+    this.project = project;
 
     this.configuration = project.getConfigurations().getByName(CONFIGURATION_NAME);
 
@@ -472,5 +475,22 @@ public class CodeGenConfig {
 
   public void sqlTest(Action<SqlTestConfig> action) {
     action.execute(sqlTestConfig);
+  }
+
+  /**
+   * Returns a Provider that creates a ClassLoader including the domaCodeGen configuration classpath.
+   * This can be used by tasks to load classes specified in entity configuration.
+   *
+   * <p>The ClassLoader is created lazily when the Provider is resolved (during task execution),
+   * ensuring that all dependencies in the domaCodeGen configuration are properly resolved.
+   *
+   * <p>Note: If the domaCodeGen configuration is empty or null, the class's own ClassLoader is returned.
+   * Otherwise, each call to {@code get()} creates a new URLClassLoader instance. In the latter case,
+   * the caller is responsible for managing the lifecycle of the returned ClassLoader.
+   *
+   * @return a Provider that creates a ClassLoader including the domaCodeGen configuration classpath
+   */
+  public Provider<ClassLoader> getClassLoaderProvider() {
+    return project.provider(this::createClassLoader);
   }
 }
