@@ -11,4 +11,5 @@ if (releaseVersion != null) {
     include("codegen-h2-test")
     include("codegen-tc-test")
     include("codegen-template-test")
+    include("codegen-superclass-test")
 }

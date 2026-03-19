@@ -55,6 +55,8 @@ public class CodeGenEntityDescTask extends DefaultTask {
   private final Property<LanguageClassResolver> languageClassResolver =
       getProject().getObjects().property(LanguageClassResolver.class);
 
+  private Provider<ClassLoader> codeGenClassLoaderProvider;
+
   private EntityConfig entityConfig;
 
   @Internal
@@ -121,6 +123,15 @@ public class CodeGenEntityDescTask extends DefaultTask {
     this.entityConfig = entityConfig;
   }
 
+  @Internal
+  public Provider<ClassLoader> getCodeGenClassLoaderProvider() {
+    return codeGenClassLoaderProvider;
+  }
+
+  public void setCodeGenClassLoaderProvider(Provider<ClassLoader> codeGenClassLoaderProvider) {
+    this.codeGenClassLoaderProvider = codeGenClassLoaderProvider;
+  }
+
   @TaskAction
   public void create() {
     EntityPropertyClassNameResolver entityPropertyClassNameResolver =
@@ -165,7 +176,10 @@ public class CodeGenEntityDescTask extends DefaultTask {
       EntityPropertyDescFactory entityPropertyDescFactory) {
     Class<?> superclass = null;
     if (entityConfig.getSuperclassName().isPresent()) {
-      superclass = ClassUtil.forName(entityConfig.getSuperclassName().get(), "superclassName");
+      ClassLoader classLoader = codeGenClassLoaderProvider != null && codeGenClassLoaderProvider.isPresent()
+          ? codeGenClassLoaderProvider.get()
+          : getClass().getClassLoader();
+      superclass = ClassUtil.forName(entityConfig.getSuperclassName().get(), "superclassName", classLoader);
     }
     return globalFactory
         .get()
