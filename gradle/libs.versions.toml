@@ -13,7 +13,7 @@ testcontainers = "2.0.5"
 kotlin = "2.3.21"
 domaCompile = "4.0.3"
 release = "3.1.0"
-spotless = "8.4.0"
+spotless = "8.5.0"
 pluginPublish = "2.1.1"
 
 # Code formatting
