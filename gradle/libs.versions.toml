@@ -10,7 +10,7 @@ junit = "6.1.3"
 testcontainers = "2.0.5"
 
 # Plugins
-kotlin = "2.4.10"
+kotlin = "2.4.20"
 domaCompile = "4.0.3"
 release = "3.1.0"
 spotless = "8.10.2"
