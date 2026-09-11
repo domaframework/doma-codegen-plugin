@@ -14,7 +14,7 @@ kotlin = "2.4.20"
 domaCompile = "4.0.3"
 release = "3.1.0"
 spotless = "8.10.2"
-pluginPublish = "2.2.0"
+pluginPublish = "2.2.1"
 
 # Code formatting
 googleJavaFormat = "1.23.0"
