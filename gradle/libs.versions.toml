@@ -1,6 +1,6 @@
 [versions]
 # Core dependencies
-doma = "3.14.0"
+doma = "3.14.1"
 freemarker = "2.3.35"
 h2 = "2.5.252"
 postgresql = "42.7.13"
