@@ -3,7 +3,7 @@
 doma = "3.14.1"
 freemarker = "2.3.35"
 h2 = "2.5.252"
-postgresql = "42.7.13"
+postgresql = "42.7.14"
 
 # Testing
 junit = "6.1.3"
